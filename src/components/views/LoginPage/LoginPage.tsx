@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   LoginButton,
   LoginForm,
@@ -8,19 +9,41 @@ import {
 } from "./style";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 export const LoginPage = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [alert, setAlert] = useState(false);
+  const [alert, setAlert] = useState("");
 
   // 폼 제출
-  const onClickLogin = () => {
-    if (email === "" || password === "" || nickname === "") {
-      setAlert(true);
+  const loginHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (email === "" || password === "") {
+      setAlert("비어있는 곳이 있습니다. 다시 확인해 주세요.");
+      return;
     } else {
-      setAlert(false);
+      setAlert("");
+
+      const data = {
+        email,
+        password,
+      };
+
+      await axios
+        .post("/auth/login", data)
+        .then((res) => {
+          localStorage.setItem("accessToken", res.data.accessToken);
+          navigate("/");
+        })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            console.log("우째서 안되는겁니까");
+            setAlert("이메일이나 비밀번호를 다시 확인해 주세요.");
+          }
+        });
     }
   };
 
@@ -29,13 +52,7 @@ export const LoginPage = () => {
       <LoginPageContainer>
         <LoginFormWrapper>
           <h2>로그인</h2>
-          <LoginForm>
-            <StyledInput
-              type="text"
-              placeholder="닉네임"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-            />
+          <LoginForm onSubmit={loginHandler}>
             <StyledInput
               type="text"
               placeholder="이메일"
@@ -43,17 +60,17 @@ export const LoginPage = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
             <StyledInput
-              type="text"
+              type="password"
               placeholder="비밀번호"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <LoginButton>로그인</LoginButton>
           </LoginForm>
-          <LoginButton onClick={onClickLogin}>로그인</LoginButton>
           {alert && <small>비어있는 곳이 있습니다. 다시 확인해 주세요.</small>}
           <small>
             계정이 없으신가요?
-            <Link to="register">회원가입</Link>
+            <Link to="/register">회원가입</Link>
           </small>
         </LoginFormWrapper>
       </LoginPageContainer>

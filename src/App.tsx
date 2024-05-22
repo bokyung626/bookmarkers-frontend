@@ -5,10 +5,12 @@ import { LoginPage } from "./components/views/LoginPage/LoginPage";
 import { Navbar } from "./components/Navbar/Navbar";
 import { RegisterPage } from "./components/views/RegisterPage/RegisterPage";
 import { MyPage } from "./components/views/MyPage/MyPage";
-import Axios from "axios";
+import axios from "axios";
+import { PrivateRoute } from "./components/Router/PrivateRoute";
 
 const App: React.FC = () => {
-  Axios.defaults.baseURL = process.env.REACT_BASE_API_URL + "/api";
+  axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+  axios.defaults.withCredentials = true;
   return (
     <div>
       <Navbar />
@@ -16,7 +18,9 @@ const App: React.FC = () => {
         <Route path="/" Component={MainPage} />
         <Route path="/login" Component={LoginPage} />
         <Route path="/register" Component={RegisterPage} />
-        <Route path="/mypage" Component={MyPage} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/mypage" Component={MyPage} />
+        </Route>
       </Routes>
     </div>
   );

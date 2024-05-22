@@ -55,3 +55,15 @@ export const LogoText = styled.div`
   font-size: 24px;
   font-weight: 600;
 `;
+
+export const StyledLogoutButton = styled.button`
+  padding: 5px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #98ddca;
+  border: 3px solid white; /* 테두리 추가 */
+  border-radius: 5px; /* 둥근 모서리 */
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s, black 0.3s; /* 부드러운 전환 효과 */
+`;
