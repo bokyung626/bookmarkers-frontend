@@ -16,16 +16,16 @@ export const LoginPage = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [alert, setAlert] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   // 폼 제출
   const loginHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (email === "" || password === "") {
-      setAlert("비어있는 곳이 있습니다. 다시 확인해 주세요.");
+      setErrorMsg("비어있는 곳이 있습니다. 다시 확인해 주세요.");
       return;
     } else {
-      setAlert("");
+      setErrorMsg("");
 
       const data = {
         email,
@@ -38,11 +38,11 @@ export const LoginPage = () => {
           localStorage.setItem("accessToken", res.data.accessToken);
           navigate("/");
         })
-        .catch((error) => {
-          if (error.response.status === 404) {
-            console.log("우째서 안되는겁니까");
-            setAlert("이메일이나 비밀번호를 다시 확인해 주세요.");
-          }
+        .catch((error: any) => {
+          console.log(error);
+          // if (error.response.status === 404) {
+          //   setErrorMsg("이메일이나 비밀번호를 다시 확인해 주세요.");
+          // }
         });
     }
   };
@@ -67,7 +67,7 @@ export const LoginPage = () => {
             />
             <LoginButton>로그인</LoginButton>
           </LoginForm>
-          {alert && <small>비어있는 곳이 있습니다. 다시 확인해 주세요.</small>}
+          <small>{errorMsg}</small>
           <small>
             계정이 없으신가요?
             <Link to="/register">회원가입</Link>

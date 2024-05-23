@@ -1,18 +1,24 @@
 import React from "react";
 import { StyledLink, RightMenuContainer, StyledLogoutButton } from "./style";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const RightMenu = () => {
   const navigation = useNavigate();
 
   const isLogin = !!localStorage.getItem("accessToken");
-  console.log(isLogin);
+
+  const onLogoutHandler = () => {
+    axios("/book/search").then((res) => {
+      console.log(res);
+    });
+  };
 
   // 로그아웃 이벤트 핸들러
-  const onLogoutHandler = () => {
-    localStorage.removeItem("accessToken");
-    navigation("/");
-  };
+  // const onLogoutHandler = () => {
+  //   localStorage.removeItem("accessToken");
+  //   navigation("/");
+  // };
 
   return isLogin ? (
     <RightMenuContainer>
