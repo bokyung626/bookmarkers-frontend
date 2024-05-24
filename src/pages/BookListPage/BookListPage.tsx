@@ -11,21 +11,38 @@ import {
 
 import { BookSearch } from "../../components/specific/BookSearch/BookSearch";
 import axios from "axios";
+import { Pagination } from "../../components/specific/Pagination/Pagination";
 
-export const BookListPage = (props: any) => {
+export const BookListPage: React.FC = () => {
   const { id } = useParams();
   const [bookList, setBookList] = useState([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const limit: number = 20;
 
   useEffect(() => {
-    console.log(console.log(id));
-    axios.post("/book/search", { d_titl: id, start: page }).then((res: any) => {
-      setBookList(res.data.items);
-      setTotal(res.data.total);
-      console.log(res.data);
-    });
-  }, [page]);
+    setPage(1);
+  }, [id]);
+
+  useEffect(() => {
+    axios
+      .post("/book/search", {
+        d_titl: id,
+        offset: (page - 1) * limit + 1,
+        limit,
+      })
+      .then((res: any) => {
+        setBookList(res.data.items);
+        setTotal(res.data.total);
+      });
+  }, [page, id]);
+
+  const onPageChange = (page: number) => {
+    if (page > 0 && page <= Math.ceil(total / limit)) {
+      setPage(page);
+      window.scrollTo({ top: 0 });
+    }
+  };
 
   const sliceDesc = (desc: string) => {
     if (desc.length > 100) {
@@ -56,6 +73,13 @@ export const BookListPage = (props: any) => {
           <h1>검색된 도서가 없습니다.</h1>
         )}
       </BookList>
+      {bookList.length > 0 && (
+        <Pagination
+          currentPage={page}
+          totalPages={Math.ceil(total / limit)}
+          onPageChange={onPageChange}
+        ></Pagination>
+      )}
     </BookListPageConatiner>
   );
 };

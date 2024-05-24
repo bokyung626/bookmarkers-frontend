@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const BookListPageConatiner = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 90px;
+  padding: 90px 0 50px 0;
   width: 100vw;
 `;
 
@@ -17,6 +17,7 @@ export const BookList = styled.ul`
   flex-direction: column;
   width: 100%;
   border: 10px;
+  padding: 0 40px;
   box-sizing: border-box;
   gap: 20px;
 `;
@@ -42,6 +43,7 @@ export const BookImg = styled.div`
 export const BookDesc = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   .title {
     font-size: 1.5rem;

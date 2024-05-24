@@ -20,7 +20,7 @@ export const BookSearch = () => {
   // useEffect(() => {}, [search]);
   const onSearchHandler = async (e: any) => {
     e.preventDefault();
-    navigate(`/booklist/${bookTitle}}`);
+    navigate(`/booklist/${bookTitle}`);
   };
 
   return (
