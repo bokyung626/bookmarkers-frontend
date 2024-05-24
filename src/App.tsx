@@ -1,14 +1,14 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { MainPage } from "./components/views/MainPage/MainPage";
-import { LoginPage } from "./components/views/LoginPage/LoginPage";
-import { Navbar } from "./components/Navbar/Navbar";
-import { RegisterPage } from "./components/views/RegisterPage/RegisterPage";
-import { MyPage } from "./components/views/MyPage/MyPage";
+import { MainPage } from "./pages/MainPage/MainPage";
+import { LoginPage } from "./pages/LoginPage/LoginPage";
+import { Navbar } from "./components/common/Navbar/Navbar";
+import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
+import { MyPage } from "./pages/MyPage/MyPage";
 import axios from "axios";
-import { PrivateRoute } from "./components/Router/PrivateRoute";
+import { PrivateRoute } from "./components/common/Router/PrivateRoute";
 import React from "react";
-import { BookInfo } from "./components/Component/BookInfo/BookInfo";
+import { BookListPage } from "./pages/BookListPage/BookListPage";
 
 const App: React.FC = () => {
   axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -20,7 +20,7 @@ const App: React.FC = () => {
         <Route path="/" Component={MainPage} />
         <Route path="/login" Component={LoginPage} />
         <Route path="/register" Component={RegisterPage} />
-        <Route path="/bookinfo" Component={BookInfo} />
+        <Route path="/booklist/:id" Component={BookListPage} />
         <Route element={<PrivateRoute />}>
           <Route path="/mypage" Component={MyPage} />
         </Route>
