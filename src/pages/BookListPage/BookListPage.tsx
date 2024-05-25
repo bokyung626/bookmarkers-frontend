@@ -35,7 +35,11 @@ export const BookListPage: React.FC = () => {
       })
       .then((res: any) => {
         setBookList(res.data.items);
-        setTotal(res.data.total);
+        if (res.data.total >= 1000) {
+          setTotal(1000);
+        } else {
+          setTotal(res.data.total);
+        }
       });
   }, [page, id]);
 
