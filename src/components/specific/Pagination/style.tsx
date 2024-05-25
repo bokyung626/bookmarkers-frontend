@@ -16,6 +16,7 @@ export const PrevButton = styled.button`
   border: none;
   border-right: 2px solid green;
   font-size: 1rem;
+  cursor: pointer;
 `;
 
 export const PageButton = styled.button<PageButtonProps>`
@@ -26,6 +27,7 @@ export const PageButton = styled.button<PageButtonProps>`
   font-size: 1rem;
   text-align: center;
   border-right: 2px solid green;
+  cursor: pointer;
 
   ${(props) =>
     props.active &&
@@ -39,4 +41,5 @@ export const NextButton = styled.button`
   background-color: white;
   border: none;
   font-size: 1rem;
+  cursor: pointer;
 `;

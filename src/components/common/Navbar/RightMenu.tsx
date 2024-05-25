@@ -23,6 +23,7 @@ export const RightMenu = () => {
   // 로그아웃 이벤트 핸들러
   const onLogoutHandler = () => {
     localStorage.removeItem("accessToken");
+    alert("로그아웃 되었습니다.");
     navigation("/");
   };
 

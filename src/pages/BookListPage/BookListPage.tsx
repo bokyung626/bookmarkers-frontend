@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   BookDesc,
   BookImg,
   BookList,
   BookListItem,
   BookListPageConatiner,
+  BookTitle,
   TotalMsg,
 } from "./style";
 
@@ -19,6 +20,7 @@ export const BookListPage: React.FC = () => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const limit: number = 20;
+  const navigate = useNavigate();
 
   useEffect(() => {
     setPage(1);
@@ -26,7 +28,7 @@ export const BookListPage: React.FC = () => {
 
   useEffect(() => {
     axios
-      .post("/book/search", {
+      .post("/book/searchByName", {
         d_titl: id,
         offset: (page - 1) * limit + 1,
         limit,
@@ -61,7 +63,14 @@ export const BookListPage: React.FC = () => {
             <BookListItem>
               <img className="image" src={book.image} alt={book.title} />
               <BookDesc>
-                <span className="title">{book.title}</span>
+                <BookTitle
+                  className="title"
+                  onClick={() => {
+                    navigate(`/bookinfo/${book.isbn}`);
+                  }}
+                >
+                  {book.title}
+                </BookTitle>
                 <span className="author">
                   {book.author} / {book.publisher}
                 </span>

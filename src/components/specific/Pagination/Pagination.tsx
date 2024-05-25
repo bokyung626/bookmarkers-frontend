@@ -17,16 +17,17 @@ export const Pagination: React.FC<PaginationProps> = ({
   totalPages,
   onPageChange,
 }) => {
-  const [pageList, setPageList] = useState([]);
-  const [pageGroup, setPageGroup] = useState(Math.floor((currentPage - 1) / 5));
+  const [pageGroup, setPageGroup] = useState(
+    Math.floor((currentPage - 1) / 10)
+  );
 
   const handlePageChange = (page: number) => {
     onPageChange(page);
-    setPageGroup(Math.floor((page - 1) / 5));
+    setPageGroup(Math.floor((page - 1) / 10));
   };
 
-  const startPage = pageGroup * 5 + 1;
-  const endPage = Math.min(startPage + 4, totalPages);
+  const startPage = pageGroup * 10 + 1;
+  const endPage = Math.min(startPage + 9, totalPages);
   const pages = [];
 
   for (let i = startPage; i <= endPage; i++) {
@@ -37,7 +38,7 @@ export const Pagination: React.FC<PaginationProps> = ({
     <PaginationContainer>
       {currentPage > 1 && (
         <PrevButton
-          onClick={() => handlePageChange(Math.max(startPage - 5, 1))}
+          onClick={() => handlePageChange(Math.max(startPage - 10, 1))}
         >
           이전 페이지
         </PrevButton>
@@ -52,7 +53,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           {page}
         </PageButton>
       ))}
-      {currentPage !== totalPages && (
+      {currentPage < totalPages && (
         <NextButton
           onClick={() => handlePageChange(Math.min(endPage + 1, totalPages))}
         >

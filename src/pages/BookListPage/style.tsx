@@ -45,13 +45,14 @@ export const BookDesc = styled.div`
   flex-direction: column;
   width: 100%;
 
-  .title {
-    font-size: 1.5rem;
-    font-weight: 500;
-  }
-
   .desc {
     color: gray;
     margin-top: 10px;
   }
+`;
+
+export const BookTitle = styled.div`
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 500;
 `;

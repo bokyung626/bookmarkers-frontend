@@ -1,13 +1,14 @@
 import React from "react";
 import { MainPageContainer } from "./style";
 import { BookSearch } from "../../components/specific/BookSearch/BookSearch";
+import { PageContainer, SectionTitle } from "../../assets/styles/style";
 
 export const MainPage = () => {
   return (
-    <MainPageContainer>
+    <PageContainer>
       <BookSearch></BookSearch>
-      <h2>오늘의 추천 도서</h2>
-      <h2>오늘의 추천 리뷰</h2>
-    </MainPageContainer>
+      <SectionTitle>오늘의 추천 도서</SectionTitle>
+      <SectionTitle>오늘의 추천 독후감</SectionTitle>
+    </PageContainer>
   );
 };
