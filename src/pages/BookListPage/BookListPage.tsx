@@ -13,6 +13,7 @@ import {
 import { BookSearch } from "../../components/specific/BookSearch/BookSearch";
 import axios from "axios";
 import { Pagination } from "../../components/specific/Pagination/Pagination";
+import { PageContainer } from "../../assets/styles/style";
 
 export const BookListPage: React.FC = () => {
   const { id } = useParams();
@@ -58,7 +59,7 @@ export const BookListPage: React.FC = () => {
   };
 
   return (
-    <BookListPageConatiner>
+    <PageContainer>
       <BookSearch></BookSearch>
       <TotalMsg>검색결과 : {total}건</TotalMsg>
       <BookList>
@@ -93,6 +94,6 @@ export const BookListPage: React.FC = () => {
           onPageChange={onPageChange}
         ></Pagination>
       )}
-    </BookListPageConatiner>
+    </PageContainer>
   );
 };

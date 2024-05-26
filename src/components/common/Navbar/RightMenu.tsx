@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  StyledLink,
-  RightMenuContainer,
-  AuthMenu,
-  Br,
-  LogoutButton,
-} from "./style";
+import { RightMenuContainer, AuthMenu, Br, LogoutButton } from "./style";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 

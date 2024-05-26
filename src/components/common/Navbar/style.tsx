@@ -6,7 +6,6 @@ export const NavbarContainer = styled.div`
   justify-content: space-between;
   z-index: 99;
   width: 100%;
-  height: 90px;
   box-sizing: border-box;
   /* border-bottom: solid 1px #e8e8e8; */
   overflow: auto;
@@ -17,25 +16,18 @@ export const NavbarContainer = styled.div`
   padding: 10px 20px;
   background-color: white;
 
-  .openMenu {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: height 0.5s;
-    animation: 0.5s ease-in-out loadEffect1;
+  @media ${(props) => props.theme.device.mobile} {
+    height: 70px;
   }
-`;
-
-export const StyledLink = styled(Link)`
-  padding: 5px 20px;
-  font-size: 16px;
-  color: white;
-  background-color: #98ddca;
-  border: 3px solid white; /* 테두리 추가 */
-  border-radius: 5px; /* 둥근 모서리 */
-  cursor: pointer;
-  text-decoration: none;
-  transition: background-color 0.3s, black 0.3s; /* 부드러운 전환 효과 */
+  @media ${(props) => props.theme.device.tablet} {
+    height: 80px;
+  }
+  @media ${(props) => props.theme.device.laptop} {
+    height: 90px;
+  }
+  @media ${(props) => props.theme.device.desktop} {
+    height: 100px;
+  }
 `;
 
 export const LeftMenuContainer = styled.div`
@@ -74,11 +66,16 @@ export const Br = styled.div`
 `;
 
 export const LinkMenu = styled(Link)`
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   text-decoration: none;
   color: black;
   font-weight: 500;
-  padding: 10px;
+  padding: 0 10px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: green;
+  }
 `;
 
 export const AuthMenu = styled(Link)`
