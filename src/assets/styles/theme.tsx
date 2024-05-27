@@ -5,6 +5,8 @@ const device = {
   desktop: `screen and (min-width: 1440px)`,
 };
 
+const font = {};
+
 const theme = {
   device,
 };

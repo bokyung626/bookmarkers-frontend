@@ -8,7 +8,7 @@ export const MainPage = () => {
     <PageContainer>
       <BookSearch></BookSearch>
       <SectionTitle>오늘의 추천 도서</SectionTitle>
-      <SectionTitle>오늘의 추천 독후감</SectionTitle>
+      <SectionTitle>오늘의 추천 독서노트</SectionTitle>
     </PageContainer>
   );
 };

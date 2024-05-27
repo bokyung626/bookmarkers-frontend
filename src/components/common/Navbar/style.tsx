@@ -44,12 +44,13 @@ export const RightMenuContainer = styled.div`
   gap: 10px;
 `;
 
-export const Logo = styled.div`
+export const Logo = styled(Link)`
   color: green;
   font-size: 2.8rem;
   font-weight: 500;
   margin-right: 20px;
   font-family: "SOYOMapleBoldTTF", sans-serif;
+
   @font-face {
     font-family: "SOYOMapleBoldTTF";
     src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2")

@@ -9,6 +9,7 @@ import { PrivateRoute } from "./components/common/Router/PrivateRoute";
 import React from "react";
 import { BookListPage } from "./pages/BookListPage/BookListPage";
 import { BookInfoPage } from "./pages/BookInfoPage/BookInfoPage";
+import { WriteBookReading } from "./pages/WriteBookReading/WriteBookReading";
 
 const App: React.FC = () => {
   axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -24,6 +25,7 @@ const App: React.FC = () => {
         <Route path="/bookinfo/:id" Component={BookInfoPage} />
         <Route element={<PrivateRoute />}>
           <Route path="/mypage" Component={MyPage} />
+          <Route path="/readingnote/write/:id" Component={WriteBookReading} />
         </Route>
       </Routes>
     </div>

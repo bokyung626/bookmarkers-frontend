@@ -1,15 +1,9 @@
 import styled from "styled-components";
 
-export const BookListPageConatiner = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 90px 0 50px 0;
-  width: 100vw;
-`;
-
 export const TotalMsg = styled.p`
   font-weight: 500;
   padding: 0 40px;
+  margin: 15px 0;
 `;
 
 export const BookList = styled.ul`

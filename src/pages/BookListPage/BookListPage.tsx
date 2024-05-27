@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  BookDesc,
-  BookImg,
-  BookList,
-  BookListItem,
-  BookListPageConatiner,
-  BookTitle,
-  TotalMsg,
-} from "./style";
+import { BookDesc, BookList, BookListItem, BookTitle, TotalMsg } from "./style";
 
 import { BookSearch } from "../../components/specific/BookSearch/BookSearch";
 import axios from "axios";
 import { Pagination } from "../../components/specific/Pagination/Pagination";
-import { PageContainer } from "../../assets/styles/style";
+import { PageContainer, SectionTitle } from "../../assets/styles/style";
 
 export const BookListPage: React.FC = () => {
   const { id } = useParams();
@@ -61,7 +53,10 @@ export const BookListPage: React.FC = () => {
   return (
     <PageContainer>
       <BookSearch></BookSearch>
-      <TotalMsg>검색결과 : {total}건</TotalMsg>
+      <SectionTitle>
+        '<span>{id}</span>'에 대한 검색결과
+      </SectionTitle>
+      <TotalMsg>총 {total}건</TotalMsg>
       <BookList>
         {bookList.length > 0 ? (
           bookList.map((book: any, index) => (

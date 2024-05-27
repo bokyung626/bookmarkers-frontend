@@ -1,10 +1,19 @@
 import styled from "styled-components";
 
-export const Button = styled.div`
+export const GButton = styled.div`
   cursor: pointer;
   background-color: green;
   padding: 10px 20px;
   color: white;
+  border-radius: 10px;
+`;
+
+export const WButton = styled.div`
+  cursor: pointer;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid green;
 `;
 
 export const PageContainer = styled.div`
@@ -29,7 +38,29 @@ export const PageContainer = styled.div`
 `;
 
 export const SectionTitle = styled.div`
-  font-size: 2rem;
-  font-weight: 800;
-  margin: 0 40px;
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin: 20px 40px;
+  span {
+    color: green;
+    font-weight: 800;
+  }
+`;
+
+export const Input = styled.input`
+  border-radius: 10px;
+  border: 2px solid green;
+  padding: 10px;
+`;
+
+export const TextArea = styled.textarea`
+  border-radius: 10px;
+  border: 2px solid green;
+  resize: none;
+  height: 30vh;
+  padding: 10px;
+
+  &:focus {
+    outline: none;
+  }
 `;
