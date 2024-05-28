@@ -11,7 +11,12 @@ import {
   BookInfoContainer,
   BookInfoMenu,
   BookTitle,
-  ReadingNodeContainer,
+  Card,
+  CardContainer,
+  CardContent,
+  CardImage,
+  ImageContainer,
+  ReadingNoteContainer,
   WriteReadingNoteButton,
 } from "./style";
 
@@ -62,13 +67,24 @@ export const BookInfoPage = () => {
       </BookInfoContainer>
 
       <SectionTitle>이 책의 독서노트</SectionTitle>
-      <ReadingNodeContainer>
+      <ReadingNoteContainer>
         {readingNotes.length > 0 ? (
           <></>
         ) : (
           <span>아직 이 도서의 독서노트가 없습니다..</span>
         )}
-      </ReadingNodeContainer>
+      </ReadingNoteContainer>
+      <CardContainer>
+        <Card>
+          <ImageContainer>
+            <CardImage src={book.image} alt={book.title} />
+          </ImageContainer>
+          <CardContent>
+            <h4>이 책 강추해요</h4>
+            <p></p>
+          </CardContent>
+        </Card>
+      </CardContainer>
     </PageContainer>
   );
 };

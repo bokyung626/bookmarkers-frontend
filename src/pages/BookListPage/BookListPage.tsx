@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { BookDesc, BookList, BookListItem, BookTitle, TotalMsg } from "./style";
+import {
+  BookDesc,
+  BookImage,
+  BookList,
+  BookListItem,
+  BookTitle,
+  TotalMsg,
+} from "./style";
 
 import { BookSearch } from "../../components/specific/BookSearch/BookSearch";
 import axios from "axios";
@@ -61,7 +68,9 @@ export const BookListPage: React.FC = () => {
         {bookList.length > 0 ? (
           bookList.map((book: any, index) => (
             <BookListItem>
-              <img className="image" src={book.image} alt={book.title} />
+              <BookImage>
+                <img className="image" src={book.image} alt={book.title} />
+              </BookImage>
               <BookDesc>
                 <BookTitle
                   className="title"

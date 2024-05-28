@@ -46,7 +46,7 @@ export const BookDescription = styled.div`
   overflow: scroll;
 `;
 
-export const ReadingNodeContainer = styled.div`
+export const ReadingNoteContainer = styled.div`
   display: flex;
   margin: 0 40px;
 `;
@@ -58,4 +58,38 @@ export const BooKInfoWrapper = styled.div`
 
 export const WriteReadingNoteButton = styled(GButton)`
   position: relative;
+`;
+export const CardContainer = styled.div`
+  border: 1px solid black;
+  width: 100vw;
+  padding: 20px;
+  box-sizing: border-box;
+`;
+export const Card = styled.div`
+  border-radius: 10px;
+  border: 1px solid black;
+  width: calc(100vw / 5 - 40px);
+  overflow: hidden;
+`;
+
+export const ImageContainer = styled.div`
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+`;
+
+export const CardImage = styled.img`
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+`;
+
+export const CardContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
 `;
