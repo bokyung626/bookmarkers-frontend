@@ -11,7 +11,6 @@ export const NavbarContainer = styled.div`
   overflow: auto;
   display: flex;
   align-items: center;
-  font-family: "NanumSquareRound";
   border-bottom: 3px solid green;
   padding: 10px 20px;
   background-color: white;

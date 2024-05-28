@@ -4,6 +4,7 @@ import { GButton } from "../../assets/styles/style";
 export const BookInfoContainer = styled.div`
   display: flex;
   padding: 20px;
+
   flex-direction: column;
   border: 3px solid green;
   border-radius: 10px;
@@ -13,7 +14,7 @@ export const BookInfoContainer = styled.div`
 
 export const BookImage = styled.img`
   width: 20%;
-  height: auto;
+
   display: block;
 `;
 
@@ -59,17 +60,41 @@ export const BooKInfoWrapper = styled.div`
 export const WriteReadingNoteButton = styled(GButton)`
   position: relative;
 `;
+
 export const CardContainer = styled.div`
-  border: 1px solid black;
-  width: 100vw;
-  padding: 20px;
+  display: inline-flex;
+  flex-wrap: wrap;
+  width: 100%;
   box-sizing: border-box;
 `;
 export const Card = styled.div`
   border-radius: 10px;
   border: 1px solid black;
-  width: calc(100vw / 5 - 40px);
+  box-sizing: border-box;
   overflow: hidden;
+  margin: 10px;
+  gap: 10px;
+  width: calc(100% / 5 - 20px);
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f1f1f1;
+    transform: scale(1.02);
+  }
+
+  //1056
+  @media ${({ theme }) => theme.device.laptop} {
+    width: calc(100% / 4 - 20px);
+  }
+
+  @media ${({ theme }) => theme.device.tablet} {
+    width: calc(100% / 2 - 20px);
+  }
+
+  //767
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 100%;
+  }
 `;
 
 export const ImageContainer = styled.div`
@@ -84,12 +109,13 @@ export const ImageContainer = styled.div`
 export const CardImage = styled.img`
   width: 100%;
   display: block;
-  margin: 0 auto;
 `;
 
 export const CardContent = styled.div`
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
   padding: 10px;
   gap: 10px;
+  border-bottom: 1px solid gray;
 `;

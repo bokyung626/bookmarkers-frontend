@@ -81,10 +81,67 @@ export const BookInfoPage = () => {
           </ImageContainer>
           <CardContent>
             <h4>이 책 강추해요</h4>
-            <p></p>
+            <p>
+              엄청 재미있어요! 감정선이 섬세하고 어쩌구저쩌구 역시 믿고보는
+              작가님 어쩌구 저쩌구
+            </p>
+            <p>2024.05.28</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <ImageContainer>
+            <CardImage src={book.image} alt={book.title} />
+          </ImageContainer>
+          <CardContent>
+            <h4>이 책 강추해요</h4>
+            <p>
+              엄청 재미있어요! 감정선이 섬세하고 어쩌구저쩌구 역시 믿고보는
+              작가님 어쩌구 저쩌구
+            </p>
+            <p>2024.05.28</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <ImageContainer>
+            <CardImage src={book.image} alt={book.title} />
+          </ImageContainer>
+          <CardContent>
+            <h4>이 책 강추해요</h4>
+            <p>
+              엄청 재미있어요! 감정선이 섬세하고 어쩌구저쩌구 역시 믿고보는
+              작가님 어쩌구 저쩌구
+            </p>
+            <p>2024.05.28</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <ImageContainer>
+            <CardImage src={book.image} alt={book.title} />
+          </ImageContainer>
+          <CardContent>
+            <h4>이 책 강추해요</h4>
+            <p>
+              엄청 재미있어요! 감정선이 섬세하고 어쩌구저쩌구 역시 믿고보는
+              작가님 어쩌구 저쩌구
+            </p>
+            <p>2024.05.28</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <ImageContainer>
+            <CardImage src={book.image} alt={book.title} />
+          </ImageContainer>
+          <CardContent>
+            <h4>이 책 강추해요</h4>
+            <p>
+              엄청 재미있어요! 감정선이 섬세하고 어쩌구저쩌구 역시 믿고보는
+              작가님 어쩌구 저쩌구
+            </p>
+            <p>2024.05.28</p>
           </CardContent>
         </Card>
       </CardContainer>
+      <SectionTitle>이 책의 필사노트</SectionTitle>
     </PageContainer>
   );
 };
