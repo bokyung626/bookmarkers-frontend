@@ -14,7 +14,6 @@ export const BookInfoContainer = styled.div`
 
 export const BookImage = styled.img`
   width: 20%;
-
   display: block;
 `;
 

@@ -40,12 +40,19 @@ export const WriteBookReading = () => {
       isbn: id,
     };
 
-    axios.post("/review", data, options).then((res) => {
-      if (res.status === 201) {
-        window.alert("독서노트가 작성되었습니다.");
-        navigate(`/readingnote/view/${res.data}`);
-      }
-    });
+    axios
+      .post("/review", data, options)
+      .then((res) => {
+        if (res.status === 201) {
+          window.alert("독서노트가 작성되었습니다.");
+          navigate(`/readingnote/view/${res.data}`);
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 403) {
+          window.alert("글쓰기 권한이 없습니다.");
+        }
+      });
   };
 
   const inputTitle = (e: ChangeEvent<HTMLInputElement>) => {

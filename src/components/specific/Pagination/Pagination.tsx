@@ -45,6 +45,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       )}
       {pages.map((page) => (
         <PageButton
+          key={page}
           onClick={() => {
             onPageChange(page);
           }}

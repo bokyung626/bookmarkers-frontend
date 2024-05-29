@@ -15,7 +15,8 @@ nav,section {
   display: block;
 }
 html{
-    @media ${(props) => props.theme.device.mobile} {
+  font-size:14px;
+    /* @media ${(props) => props.theme.device.mobile} {
     font-size: 10px;
   }
   @media ${(props) => props.theme.device.tablet} {
@@ -26,7 +27,7 @@ html{
   }
   @media ${(props) => props.theme.device.desktop} {
     font-size: 14px;
-  }
+  } */
 }
 body {
   line-height: 1;

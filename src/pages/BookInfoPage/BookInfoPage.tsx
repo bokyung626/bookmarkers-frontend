@@ -19,9 +19,25 @@ import {
   ReadingNoteContainer,
   WriteReadingNoteButton,
 } from "./style";
+import dayjs from "dayjs";
+
+interface Review {
+  id: string;
+  title: string;
+  content: string;
+  memory: string;
+  createdAt: Date;
+  isbn: string;
+  user: {
+    id: string;
+    nickname: string;
+    email: string;
+    profileImage: string | null;
+  };
+}
 
 export const BookInfoPage = () => {
-  const [readingNotes, setReadingNotes] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const navigete = useNavigate();
   const [book, setBook] = useState({
     author: "",
@@ -34,13 +50,22 @@ export const BookInfoPage = () => {
     publisher: "",
     title: "",
   });
+  const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
     axios.post("/book/searchByISBN", { isbn: id }).then((res: any) => {
-      console.log(res.data);
       setBook(res.data);
     });
+
+    axios.get(`/review/isbn/${id}`).then((res) => {
+      setReviews(res.data);
+      console.log(res.data);
+    });
   }, []);
+
+  const onClickCardHandler = (postId: string) => {
+    navigate(`/readingnote/view/${postId}`);
+  };
 
   return (
     <PageContainer>
@@ -68,78 +93,31 @@ export const BookInfoPage = () => {
 
       <SectionTitle>이 책의 독서노트</SectionTitle>
       <ReadingNoteContainer>
-        {readingNotes.length > 0 ? (
+        {reviews.length > 0 ? (
           <></>
         ) : (
           <span>아직 이 도서의 독서노트가 없습니다..</span>
         )}
       </ReadingNoteContainer>
       <CardContainer>
-        <Card>
-          <ImageContainer>
-            <CardImage src={book.image} alt={book.title} />
-          </ImageContainer>
-          <CardContent>
-            <h4>이 책 강추해요</h4>
-            <p>
-              엄청 재미있어요! 감정선이 섬세하고 어쩌구저쩌구 역시 믿고보는
-              작가님 어쩌구 저쩌구
-            </p>
-            <p>2024.05.28</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <ImageContainer>
-            <CardImage src={book.image} alt={book.title} />
-          </ImageContainer>
-          <CardContent>
-            <h4>이 책 강추해요</h4>
-            <p>
-              엄청 재미있어요! 감정선이 섬세하고 어쩌구저쩌구 역시 믿고보는
-              작가님 어쩌구 저쩌구
-            </p>
-            <p>2024.05.28</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <ImageContainer>
-            <CardImage src={book.image} alt={book.title} />
-          </ImageContainer>
-          <CardContent>
-            <h4>이 책 강추해요</h4>
-            <p>
-              엄청 재미있어요! 감정선이 섬세하고 어쩌구저쩌구 역시 믿고보는
-              작가님 어쩌구 저쩌구
-            </p>
-            <p>2024.05.28</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <ImageContainer>
-            <CardImage src={book.image} alt={book.title} />
-          </ImageContainer>
-          <CardContent>
-            <h4>이 책 강추해요</h4>
-            <p>
-              엄청 재미있어요! 감정선이 섬세하고 어쩌구저쩌구 역시 믿고보는
-              작가님 어쩌구 저쩌구
-            </p>
-            <p>2024.05.28</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <ImageContainer>
-            <CardImage src={book.image} alt={book.title} />
-          </ImageContainer>
-          <CardContent>
-            <h4>이 책 강추해요</h4>
-            <p>
-              엄청 재미있어요! 감정선이 섬세하고 어쩌구저쩌구 역시 믿고보는
-              작가님 어쩌구 저쩌구
-            </p>
-            <p>2024.05.28</p>
-          </CardContent>
-        </Card>
+        {reviews.map((review: Review) => (
+          <Card
+            key={review.id}
+            onClick={() => {
+              onClickCardHandler(review.id);
+            }}
+          >
+            <ImageContainer>
+              <CardImage src={book.image} alt={book.title} />
+            </ImageContainer>
+            <CardContent>
+              <h4>{review.title}</h4>
+              <p>{review.content}</p>
+              <p>{dayjs(review.createdAt).format("YYYY-MM-DD")}</p>
+            </CardContent>
+            <p>{review.user.nickname}</p>
+          </Card>
+        ))}
       </CardContainer>
       <SectionTitle>이 책의 필사노트</SectionTitle>
     </PageContainer>

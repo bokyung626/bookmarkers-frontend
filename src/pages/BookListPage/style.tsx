@@ -16,11 +16,6 @@ export const BookList = styled.ul`
   gap: 20px;
 `;
 
-export const BookListItem = styled.li`
-  display: flex;
-  gap: 20px;
-`;
-
 export const BookImage = styled.div`
   position: relative;
   border-radius: 10px;
@@ -38,6 +33,12 @@ export const BookImage = styled.div`
     width: 100%;
     height: 100%;
   }
+`;
+
+export const BookListItem = styled.li`
+  display: flex;
+  gap: 20px;
+  cursor: pointer;
 `;
 
 export const BookImg = styled.div`

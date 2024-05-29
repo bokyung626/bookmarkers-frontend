@@ -66,20 +66,18 @@ export const BookListPage: React.FC = () => {
       <TotalMsg>총 {total}건</TotalMsg>
       <BookList>
         {bookList.length > 0 ? (
-          bookList.map((book: any, index) => (
-            <BookListItem>
+          bookList.map((book: any) => (
+            <BookListItem
+              key={book.isbn}
+              onClick={() => {
+                navigate(`/bookinfo/${book.isbn}`);
+              }}
+            >
               <BookImage>
                 <img className="image" src={book.image} alt={book.title} />
               </BookImage>
               <BookDesc>
-                <BookTitle
-                  className="title"
-                  onClick={() => {
-                    navigate(`/bookinfo/${book.isbn}`);
-                  }}
-                >
-                  {book.title}
-                </BookTitle>
+                <BookTitle className="title">{book.title}</BookTitle>
                 <span className="author">
                   {book.author} / {book.publisher}
                 </span>
