@@ -1,6 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useState } from "react";
 
 export const PrivateRoute = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+
   const isLogin = !!localStorage.getItem("accessToken");
 
   if (isLogin) {

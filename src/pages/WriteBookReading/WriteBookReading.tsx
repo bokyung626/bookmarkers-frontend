@@ -9,6 +9,7 @@ import {
 import { BookReadingContainer, Content } from "./style";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAxiosWithAuth } from "../../hooks/useAxiosWithAuth";
 
 const CONTENT_LIMIT = 1000;
 const MEMORY_LIMIT = 300;
@@ -20,18 +21,13 @@ export const WriteBookReading = () => {
   const [memory, setMemory] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
+  const axiosInstance = useAxiosWithAuth();
 
   const onSubmitHandler = () => {
     if (title === "" || content === "") {
       window.alert("제목과 내용을 입력해 주세요.");
       return;
     }
-
-    const options = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    };
 
     const data = {
       title: title,
@@ -40,19 +36,12 @@ export const WriteBookReading = () => {
       isbn: id,
     };
 
-    axios
-      .post("/review", data, options)
-      .then((res) => {
-        if (res.status === 201) {
-          window.alert("독서노트가 작성되었습니다.");
-          navigate(`/readingnote/view/${res.data}`);
-        }
-      })
-      .catch((error) => {
-        if (error.response.status === 403) {
-          window.alert("글쓰기 권한이 없습니다.");
-        }
-      });
+    axiosInstance.post("/review", data).then((res) => {
+      if (res.status === 201) {
+        window.alert("독서노트가 작성되었습니다.");
+        navigate(`/readingnote/view/${res.data}`);
+      }
+    });
   };
 
   const inputTitle = (e: ChangeEvent<HTMLInputElement>) => {
