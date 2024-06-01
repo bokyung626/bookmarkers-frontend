@@ -9,8 +9,8 @@ import { PrivateRoute } from "./components/common/Router/PrivateRoute";
 import React from "react";
 import { BookListPage } from "./pages/BookListPage/BookListPage";
 import { BookInfoPage } from "./pages/BookInfoPage/BookInfoPage";
-import { WriteBookReading } from "./pages/WriteBookReading/WriteBookReading";
-import { ViewBookReading } from "./pages/ViewBookReading/ViewBookReading";
+import { WriteReviewPage } from "./pages/WriteReviewPage/WriteBookReading";
+import { ViewReviewPage } from "./pages/ViewReviewPage/ViewReviewPage";
 import { ReviewMainPage } from "./pages/ReviewMainPage/ReviewMainPage";
 
 const App: React.FC = () => {
@@ -27,10 +27,10 @@ const App: React.FC = () => {
         <Route path="/register" Component={RegisterPage} />
         <Route path="/booklist/:id" Component={BookListPage} />
         <Route path="/bookinfo/:id" Component={BookInfoPage} />
-        <Route path="/readingnote/view/:id" Component={ViewBookReading} />
+        <Route path="/review/view/:id" Component={ViewReviewPage} />
         <Route element={<PrivateRoute />}>
           <Route path="/mypage" Component={MyPage} />
-          <Route path="/readingnote/write/:id" Component={WriteBookReading} />
+          <Route path="/review/write/:id" Component={WriteReviewPage} />
         </Route>
       </Routes>
     </div>
