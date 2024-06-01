@@ -15,7 +15,7 @@ nav,section {
   display: block;
 }
 html{
-  font-size:14px;
+  font-size:16px;
     /* @media ${(props) => props.theme.device.mobile} {
     font-size: 10px;
   }
@@ -30,7 +30,6 @@ html{
   } */
 }
 body {
-  line-height: 1;
   background: white;
   margin: 0;
   font-family: GmarketSansMedium;

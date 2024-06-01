@@ -1,104 +1,83 @@
 import React, { useEffect, useState } from "react";
-import { PageContainer, SectionTitle } from "../../assets/styles/style";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
 import {
-  BooKInfoWrapper,
-  BookAuthor,
-  BookDesc,
-  BookDescription,
-  BookImage,
-  BookInfoContainer,
-  BookInfoMenu,
-  BookTitle,
   Card,
   CardContainer,
-  CardContent,
-  CardImage,
-  ImageContainer,
-  ReadingNoteContainer,
-  WriteReadingNoteButton,
-} from "./style";
+  PageContainer,
+  SectionTitle,
+} from "../../assets/styles/style";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
+import * as Styled from "./style";
 import dayjs from "dayjs";
-
-interface Review {
-  id: string;
-  title: string;
-  content: string;
-  memory: string;
-  createdAt: Date;
-  isbn: string;
-  user: {
-    id: string;
-    nickname: string;
-    email: string;
-    profileImage: string | null;
-  };
-}
+import { Review } from "../../types/review";
+import { Book } from "../../types/book";
+import textSlicer from "../../utils/textSlicer";
+import { UserProfile } from "../../components/specific/UserProfile/UserProfile";
 
 export const BookInfoPage = () => {
-  const [reviews, setReviews] = useState([]);
-  const navigete = useNavigate();
-  const [book, setBook] = useState({
-    author: "",
-    description: "",
-    discount: "",
-    image: "",
-    isbn: "",
-    link: "",
-    pubdate: "",
-    publisher: "",
-    title: "",
-  });
-  const navigate = useNavigate();
   const { id } = useParams();
+  const [reviews, setReviews] = useState([]);
+  const [copynotes, setCopynotes] = useState([]);
+  const [book, setBook] = useState<Book | null>(null);
+  const navigate = useNavigate();
+
   useEffect(() => {
     axios.post("/book/searchByISBN", { isbn: id }).then((res: any) => {
-      setBook(res.data);
+      if (res.data.items.length > 0) {
+        setBook(res.data.items[0]);
+      }
     });
 
     axios.get(`/review/isbn/${id}`).then((res) => {
       setReviews(res.data);
-      console.log(res.data);
     });
   }, []);
 
   const onClickCardHandler = (postId: string) => {
-    navigate(`/readingnote/view/${postId}`);
+    navigate(`/review/view/${postId}`);
   };
+
+  if (!book)
+    return (
+      <PageContainer>
+        해당 ISBN에 관련한 책 정보를 찾을 수 없습니다.
+      </PageContainer>
+    );
 
   return (
     <PageContainer>
-      <BookInfoContainer>
-        <BookInfoMenu>
-          <WriteReadingNoteButton
-            onClick={() => {
-              navigete(`/readingnote/write/${id}`);
-            }}
-          >
-            독서노트 작성
-          </WriteReadingNoteButton>
-        </BookInfoMenu>
-        <BooKInfoWrapper>
-          <BookImage src={book.image} alt={book.title} />
-          <BookDesc>
-            <BookTitle>{book.title}</BookTitle>
-            <BookAuthor>
+      <Styled.BookInfoContainer>
+        <Styled.BookInfoMenu></Styled.BookInfoMenu>
+        <Styled.BooKInfoWrapper>
+          <Styled.BookImage>
+            <img src={book.image} alt={book.title} />
+          </Styled.BookImage>
+          <Styled.BookDesc>
+            <Styled.BookTitle>{book.title}</Styled.BookTitle>
+            <Styled.BookAuthor>
               {book.author} / {book.publisher}
-            </BookAuthor>
-            <BookDescription>{book.description}</BookDescription>
-          </BookDesc>
-        </BooKInfoWrapper>
-      </BookInfoContainer>
-
+            </Styled.BookAuthor>
+            <Styled.BookDescription>{book.description}</Styled.BookDescription>
+          </Styled.BookDesc>
+        </Styled.BooKInfoWrapper>
+      </Styled.BookInfoContainer>
+      <Styled.ButtonContainer>
+        <Styled.WriteReadingNoteButton
+          onClick={() => {
+            navigate(`/review/write/${id}`);
+          }}
+        >
+          독서노트 작성
+        </Styled.WriteReadingNoteButton>
+      </Styled.ButtonContainer>
       <SectionTitle>이 책의 독서노트</SectionTitle>
-      <ReadingNoteContainer>
+      <Styled.ReadingNoteContainer>
         {reviews.length > 0 ? (
           <></>
         ) : (
-          <span>아직 이 도서의 독서노트가 없습니다..</span>
+          <span>아직 이 책의 독서노트가 없습니다..</span>
         )}
-      </ReadingNoteContainer>
+      </Styled.ReadingNoteContainer>
       <CardContainer>
         {reviews.map((review: Review) => (
           <Card
@@ -107,19 +86,31 @@ export const BookInfoPage = () => {
               onClickCardHandler(review.id);
             }}
           >
-            <ImageContainer>
-              <CardImage src={book.image} alt={book.title} />
-            </ImageContainer>
-            <CardContent>
-              <h4>{review.title}</h4>
-              <p>{review.content}</p>
-              <p>{dayjs(review.createdAt).format("YYYY-MM-DD")}</p>
-            </CardContent>
-            <p>{review.user.nickname}</p>
+            <Styled.ImageContainer>
+              <Styled.CardImage src={book.image} alt={book.title} />
+            </Styled.ImageContainer>
+            <Styled.CardContent>
+              <h4>{textSlicer(review.title, 15)}</h4>
+              <p className="post-content">{textSlicer(review.content, 30)}</p>
+              <p className="post-day">
+                {dayjs(review.createdAt).format("YYYY-MM-DD")}
+              </p>
+            </Styled.CardContent>
+            <UserProfile
+              url={review.user.profileImage}
+              nickname={review.user.nickname}
+            ></UserProfile>
           </Card>
         ))}
       </CardContainer>
       <SectionTitle>이 책의 필사노트</SectionTitle>
+      <Styled.CopyNoteContainer>
+        {copynotes.length > 0 ? (
+          <></>
+        ) : (
+          <span>아직 이 책의 필사노트가 없습니다..</span>
+        )}
+      </Styled.CopyNoteContainer>
     </PageContainer>
   );
 };
