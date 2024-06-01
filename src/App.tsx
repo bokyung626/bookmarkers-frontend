@@ -20,6 +20,7 @@ const App: React.FC = () => {
       <Navbar />
       <Routes>
         <Route path="/" Component={MainPage} />
+        <Route path="/copynote" Component={CopyNoteMainPage} />
         <Route path="/login" Component={LoginPage} />
         <Route path="/register" Component={RegisterPage} />
         <Route path="/booklist/:id" Component={BookListPage} />
