@@ -63,10 +63,14 @@ export const Br = styled.div`
   background-color: black;
 `;
 
-export const LinkMenu = styled(Link)`
+interface LinkMenuProps {
+  active: boolean;
+}
+
+export const LinkMenu = styled(Link)<LinkMenuProps>`
   font-size: 1.5rem;
   text-decoration: none;
-  color: black;
+  color: ${(props) => (props.active ? "green" : "black")};
   font-weight: 500;
   padding: 0 10px;
   transition: color 0.2s;
