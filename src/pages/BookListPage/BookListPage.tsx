@@ -13,6 +13,7 @@ import { BookSearch } from "../../components/specific/BookSearch/BookSearch";
 import axios from "axios";
 import { Pagination } from "../../components/specific/Pagination/Pagination";
 import { PageContainer, SectionTitle } from "../../assets/styles/style";
+import textSlicer from "../../utils/textSlicer";
 
 export const BookListPage: React.FC = () => {
   const { id } = useParams();
@@ -50,13 +51,6 @@ export const BookListPage: React.FC = () => {
     }
   };
 
-  const sliceDesc = (desc: string) => {
-    if (desc.length > 100) {
-      return `${desc.slice(0, 100)}...`;
-    }
-    return desc;
-  };
-
   return (
     <PageContainer>
       <BookSearch></BookSearch>
@@ -81,7 +75,9 @@ export const BookListPage: React.FC = () => {
                 <span className="author">
                   {book.author} / {book.publisher}
                 </span>
-                <span className="desc">{sliceDesc(book.description)}</span>
+                <span className="desc">
+                  {textSlicer(book.description, 150)}
+                </span>
               </BookDesc>
             </BookListItem>
           ))
