@@ -11,6 +11,7 @@ import { BookListPage } from "./pages/BookListPage/BookListPage";
 import { BookInfoPage } from "./pages/BookInfoPage/BookInfoPage";
 import { WriteBookReading } from "./pages/WriteBookReading/WriteBookReading";
 import { ViewBookReading } from "./pages/ViewBookReading/ViewBookReading";
+import { ReviewMainPage } from "./pages/ReviewMainPage/ReviewMainPage";
 
 const App: React.FC = () => {
   axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -21,6 +22,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" Component={MainPage} />
         <Route path="/copynote" Component={CopyNoteMainPage} />
+        <Route path="/review" Component={ReviewMainPage} />
         <Route path="/login" Component={LoginPage} />
         <Route path="/register" Component={RegisterPage} />
         <Route path="/booklist/:id" Component={BookListPage} />
