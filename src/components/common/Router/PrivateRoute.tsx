@@ -1,15 +1,28 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAxiosWithAuth } from "../../../hooks/useAxiosWithAuth";
 
 export const PrivateRoute = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const axiosInstance = useAxiosWithAuth();
 
-  const isLogin = !!localStorage.getItem("accessToken");
+  useEffect(() => {
+    const verifyToken = async () => {
+      try {
+        const responese = await axiosInstance.get("/auth/check");
+        if (responese) {
+          setIsAuthenticated(true);
+        }
+      } catch (error) {
+        setIsAuthenticated(false);
+      }
+    };
+    verifyToken();
+  }, [axiosInstance]);
 
-  if (isLogin) {
-    return <Outlet />;
-  } else {
-    window.alert("권한이 없습니다. 로그인 해주세요.");
-    return <Navigate to="/login" />;
+  if (isAuthenticated === null) {
+    return <>Loading...</>;
   }
+
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 };
