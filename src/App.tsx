@@ -9,7 +9,7 @@ import { PrivateRoute } from "./components/common/Router/PrivateRoute";
 import React from "react";
 import { BookListPage } from "./pages/BookListPage/BookListPage";
 import { BookInfoPage } from "./pages/BookInfoPage/BookInfoPage";
-import { WriteReviewPage } from "./pages/WriteReviewPage/WriteBookReading";
+import { WriteReviewPage } from "./pages/WriteReviewPage/WriteReviewPage";
 import { ViewReviewPage } from "./pages/ViewReviewPage/ViewReviewPage";
 import { ReviewMainPage } from "./pages/ReviewMainPage/ReviewMainPage";
 
