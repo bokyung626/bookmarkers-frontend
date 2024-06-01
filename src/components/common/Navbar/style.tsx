@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const NavbarContainer = styled.div`
+  display: flex;
   position: fixed;
   justify-content: space-between;
   z-index: 99;
@@ -9,7 +10,6 @@ export const NavbarContainer = styled.div`
   box-sizing: border-box;
   /* border-bottom: solid 1px #e8e8e8; */
   overflow: auto;
-  display: flex;
   align-items: center;
   border-bottom: 3px solid green;
   padding: 10px 20px;
@@ -31,14 +31,13 @@ export const NavbarContainer = styled.div`
 
 export const LeftMenuContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  height: 100%;
   align-items: flex-end;
 `;
 
 export const RightMenuContainer = styled.div`
   display: flex;
   height: 100%;
-  flex-direction: row;
   align-items: flex-start;
   gap: 10px;
 `;
@@ -46,7 +45,7 @@ export const RightMenuContainer = styled.div`
 export const Logo = styled(Link)`
   color: green;
   font-size: 2.8rem;
-  font-weight: 500;
+  font-weight: 700;
   margin-right: 20px;
   font-family: "SOYOMapleBoldTTF", sans-serif;
 
@@ -54,7 +53,6 @@ export const Logo = styled(Link)`
     font-family: "SOYOMapleBoldTTF";
     src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2")
       format("woff2");
-    font-weight: 700;
     font-style: normal;
   }
 `;
