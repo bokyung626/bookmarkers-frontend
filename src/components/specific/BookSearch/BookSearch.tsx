@@ -10,41 +10,58 @@ import {
   Select,
   SelectContainer,
 } from "./style";
-import axios from "axios";
 
-export const BookSearch = () => {
+export const BookSearch: React.FC = () => {
+  const [selectedOption, setSelectedOption] = useState("title");
+  const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
-  const [bookTitle, setBookTitle] = useState("");
-  const [expanded, setExpanded] = useState(false);
 
-  // useEffect(() => {}, [search]);
-  const onSearchHandler = async (e: any) => {
-    e.preventDefault();
-    navigate(`/booklist/${bookTitle}`);
+  // select 태그 이벤트 핸들러
+  const onSelectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.value === "isbn") {
+      setSelectedOption("isbn");
+    } else {
+      setSelectedOption("title");
+    }
+  };
+
+  // 검색
+  const onSearch = async () => {
+    if (selectedOption === "isbn") {
+      navigate(`/bookinfo/${searchValue}`);
+    } else navigate(`/booklist/${searchValue}`);
   };
 
   return (
     <Container>
       <SearchContainer>
         <SelectContainer>
-          <Select name="search-option" id="search-option">
+          <Select
+            name="search-option"
+            id="search-option"
+            onChange={onSelectHandler}
+          >
             <option value="title">제목</option>
-            <option value="author">저자</option>
-            <option value="publisher">출판사</option>
+            <option value="isbn">ISBN</option>
           </Select>
         </SelectContainer>
         <SearchInput
           type="text"
-          placeholder="검색어를 입력하세요..."
-          value={bookTitle}
-          onChange={(e) => {
-            setBookTitle(e.target.value);
+          placeholder="검색어를 입력하세요."
+          value={searchValue}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setSearchValue(e.target.value);
           }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") navigate(`/booklist/${bookTitle}`);
+          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === "Enter") onSearch();
           }}
         />
-        <SearchButton onClick={onSearchHandler}>
+        <SearchButton
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+            e.preventDefault();
+            onSearch();
+          }}
+        >
           <SearchIcon icon={faSearch} />
         </SearchButton>
       </SearchContainer>
