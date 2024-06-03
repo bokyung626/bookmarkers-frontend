@@ -13,6 +13,7 @@ import { WriteReviewPage } from "./pages/WriteReviewPage/WriteReviewPage";
 import { ViewReviewPage } from "./pages/ViewReviewPage/ViewReviewPage";
 import { ReviewMainPage } from "./pages/ReviewMainPage/ReviewMainPage";
 import { CopyNoteMainPage } from "./pages/CopyNoteMainPage/CopyNoteMainPage";
+import { Footer } from "./components/common/Footer/Footer";
 
 const App: React.FC = () => {
   axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -34,6 +35,7 @@ const App: React.FC = () => {
           <Route path="/review/write/:id" Component={WriteReviewPage} />
         </Route>
       </Routes>
+      <Footer />
     </div>
   );
 };
