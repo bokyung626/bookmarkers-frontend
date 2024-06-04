@@ -1,27 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import * as S from "./style";
-import { User } from "../../../types/user";
-import dayjs from "dayjs";
-import { Avatar } from "../../common/User/Avatar";
-import ReplyCommentInput from "./ReplyCommentInput";
 import { Comment } from "./Comment";
-
-interface Comment {
-  id: string;
-  content: string;
-  createdAt: Date;
-  reviewId: string;
-  user: User;
-}
+import { ParentComment } from "../../../types/comment";
 
 interface CommentListProps {
-  comments: Comment[];
+  comments: ParentComment[];
 }
 
 const CommentList: React.FC<CommentListProps> = ({ comments }) => {
   return (
     <S.CommentListContainer>
-      {comments.map((comment: Comment) => (
+      {comments.map((comment: ParentComment) => (
         <Comment comment={comment}></Comment>
       ))}
     </S.CommentListContainer>

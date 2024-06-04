@@ -22,6 +22,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ onSubmitComment }) => {
       <GButton
         onClick={() => {
           onSubmitComment(content);
+          setContent("");
         }}
       >
         댓글 작성

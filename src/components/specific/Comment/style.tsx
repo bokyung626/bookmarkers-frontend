@@ -36,6 +36,8 @@ export const CommentContainer = styled.div`
   border-style: dotted;
 `;
 
+export const ReplyContainer = styled(CommentContainer)``;
+
 export const CommentHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -43,7 +45,7 @@ export const CommentHeader = styled.div`
 
 export const CommentBody = styled.div`
   display: flex;
-  padding: 20px 0;
+  padding: 10px 0;
   white-space: pre-wrap;
 `;
 
@@ -64,8 +66,11 @@ export const CommentInfo = styled.div`
 export const CommentAction = styled.div`
   display: flex;
   gap: 5px;
-  p {
+
+  button {
     color: gray;
+    font-weight: 600;
+    background-color: transparent;
   }
 `;
 
@@ -77,5 +82,7 @@ export const CommentProfile = styled.div`
 export const CommentOption = styled.div`
   .write-reply {
     color: green;
+
+    font-weight: 600;
   }
 `;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AutoResizeTextarea } from "../../common/AutoResizeTextarea/AutoResizeTextarea";
 import * as Styled from "./style";
-import { GButton, WButton } from "../../../assets/styles/style";
+import { GButton } from "../../../assets/styles/style";
 
 interface ReplyCommentInputProps {
   onSubmitReply: (content: string) => void;
@@ -21,13 +21,14 @@ const ReplyCommentInput: React.FC<ReplyCommentInputProps> = ({
           setContent(e.target.value);
         }}
       ></AutoResizeTextarea>
-      <WButton
+      <GButton
         onClick={() => {
           onSubmitReply(content);
+          setContent("");
         }}
       >
         답글 작성
-      </WButton>
+      </GButton>
     </Styled.WriteReplyContainer>
   );
 };

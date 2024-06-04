@@ -15,11 +15,12 @@ import { Book } from "../../types/book";
 import { Modal } from "../../components/common/Modal/Modal";
 import { useAxiosWithAuth } from "../../hooks/useAxiosWithAuth";
 import { CommentInput, CommentList } from "../../components/specific/Comment";
+import { ParentComment } from "../../types/comment";
 
 export const ViewReviewPage = () => {
   const [review, setReview] = useState<Review | null>(null);
   const [book, setBook] = useState<Book | null>(null);
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<ParentComment[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalContent, setModalContent] = useState("");
@@ -29,6 +30,7 @@ export const ViewReviewPage = () => {
   useEffect(() => {
     axios.get(`/review/${id}`).then((res: AxiosResponse) => {
       setReview(res.data);
+      setComments(res.data.comments);
 
       axios
         .post("/book/searchByISBN", { isbn: res.data.isbn })
@@ -36,11 +38,7 @@ export const ViewReviewPage = () => {
           setBook(res.data.items[0]);
         });
     });
-
-    axios.get(`/comment/${id}`).then((res: AxiosResponse) => {
-      setComments(res.data);
-    });
-  }, []);
+  }, [id]);
 
   const closeModalHandler = () => {
     setShowModal(false);
@@ -65,8 +63,7 @@ export const ViewReviewPage = () => {
 
     axiosInstance.post("/comment", data).then((res) => {
       if (res.status === 201) {
-        console.log("댓글이 작성되었습니다.");
-        //navigate(`/review/view/${res.data}`);
+        setComments([...comments, res.data]);
       }
     });
   };
