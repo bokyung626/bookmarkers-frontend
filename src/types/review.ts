@@ -1,3 +1,4 @@
+import { ParentComment } from "./comment";
 import { User } from "./user";
 
 export interface Review {
@@ -8,4 +9,5 @@ export interface Review {
   createdAt: Date;
   isbn: string;
   user: User;
+  comments: ParentComment[];
 }
