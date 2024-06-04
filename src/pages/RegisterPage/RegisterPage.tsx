@@ -11,24 +11,32 @@ import {
 } from "./style";
 import axios from "axios";
 
-export const RegisterPage = () => {
+export const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
-  const [nickname, setNickname] = useState("");
   const [alert, setAlert] = useState("");
 
   // 폼 제출
   const onSubmitRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (email === "" || password === "" || nickname === "") {
+    if (
+      email === "" ||
+      password === "" ||
+      nickname === "" ||
+      checkPassword === ""
+    ) {
       setAlert("비어있는 곳이 있습니다. 다시 확인해 주세요.");
       return;
-    } else if (password !== checkPassword) {
+    }
+
+    if (password !== checkPassword) {
       setAlert("비밀번호가 일치하지 않습니다.");
       return;
     } else setAlert("");
+
     const data = {
       email,
       password,
@@ -53,7 +61,7 @@ export const RegisterPage = () => {
               onChange={(e) => setNickname(e.target.value)}
             />
             <StyledInput
-              type="text"
+              type="email"
               placeholder="이메일"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -72,7 +80,7 @@ export const RegisterPage = () => {
             />
             <RegisterButton>회원가입</RegisterButton>
           </RegisterForm>
-          {alert && <small>비어있는 곳이 있습니다. 다시 확인해 주세요.</small>}
+          {alert && <small>{alert}</small>}
           <small>
             이미 계정이 있으신가요?
             <Link to="/login">로그인</Link>

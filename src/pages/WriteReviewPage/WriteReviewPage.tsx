@@ -6,9 +6,10 @@ import {
   SectionTitle,
   TextArea,
 } from "../../assets/styles/style";
-import { BookReadingContainer, AutoTextAreaMemory } from "./style";
+import { BookReadingContainer } from "./style";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAxiosWithAuth } from "../../hooks/useAxiosWithAuth";
+import { AutoResizeTextarea } from "../../components/common/AutoResizeTextarea/AutoResizeTextarea";
 
 const CONTENT_LIMIT = 1000;
 const MEMORY_LIMIT = 300;
@@ -21,14 +22,6 @@ export const WriteReviewPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const axiosInstance = useAxiosWithAuth();
-  const memoryRef = useRef<HTMLTextAreaElement | null>(null);
-
-  const handleResizeHeight = useCallback(() => {
-    if (memoryRef.current) {
-      memoryRef.current.style.height = "auto";
-      memoryRef.current.style.height = memoryRef.current.scrollHeight + "px";
-    }
-  }, []);
 
   const onSubmitHandler = () => {
     if (title === "" || content === "") {
@@ -91,13 +84,11 @@ export const WriteReviewPage = () => {
         ></TextArea>
         <span>{content.length}/1000</span>
         <span>기억에 남는 구절</span>
-        <AutoTextAreaMemory
-          ref={memoryRef}
-          value={memory}
-          placeholder="기억에 남는 문장이나 구절을 작성해 주세요. 큰 따옴표는 생략해 주세요."
+        <AutoResizeTextarea
+          placeholder="기억에 남는 구절을 작성해 주세요. 큰 따옴표는 생략해 주세요."
           onChange={inputMemory}
-          onInput={handleResizeHeight}
-        ></AutoTextAreaMemory>
+          value={memory}
+        ></AutoResizeTextarea>
         <span>{memory.length}/300</span>
         <GButton onClick={onSubmitHandler}>독서노트 작성</GButton>
       </BookReadingContainer>

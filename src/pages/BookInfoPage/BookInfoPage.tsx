@@ -12,7 +12,7 @@ import dayjs from "dayjs";
 import { Review } from "../../types/review";
 import { Book } from "../../types/book";
 import textSlicer from "../../utils/textSlicer";
-import { UserProfile } from "../../components/specific/UserProfile/UserProfile";
+import { UserProfile } from "../../components/common/User/UserProfile";
 
 export const BookInfoPage = () => {
   const { id } = useParams();
@@ -46,6 +46,7 @@ export const BookInfoPage = () => {
 
   return (
     <PageContainer>
+      <SectionTitle>도서 정보</SectionTitle>
       <Styled.BookInfoContainer>
         <Styled.BookInfoMenu></Styled.BookInfoMenu>
         <Styled.BooKInfoWrapper>

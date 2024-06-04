@@ -30,3 +30,7 @@ export const LoginForm = styled.form`
 export const LoginButton = styled.button`
   padding: 10px;
 `;
+
+export const ErrorMsg = styled.p`
+  color: red;
+`;

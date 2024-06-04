@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
+  ErrorMsg,
   LoginButton,
   LoginForm,
   LoginFormWrapper,
@@ -11,7 +12,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-export const LoginPage = () => {
+export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -40,9 +41,9 @@ export const LoginPage = () => {
         })
         .catch((error: any) => {
           console.log(error);
-          // if (error.response.status === 404) {
-          //   setErrorMsg("이메일이나 비밀번호를 다시 확인해 주세요.");
-          // }
+          if (error.response.status === 404) {
+            setErrorMsg("이메일과 비밀번호를 다시 확인해 주세요.");
+          }
         });
     }
   };
@@ -54,7 +55,7 @@ export const LoginPage = () => {
           <h2>로그인</h2>
           <LoginForm onSubmit={loginHandler}>
             <StyledInput
-              type="text"
+              type="email"
               placeholder="이메일"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -67,7 +68,7 @@ export const LoginPage = () => {
             />
             <LoginButton>로그인</LoginButton>
           </LoginForm>
-          <small>{errorMsg}</small>
+          <ErrorMsg>{errorMsg}</ErrorMsg>
           <small>
             계정이 없으신가요?
             <Link to="/register">회원가입</Link>

@@ -8,7 +8,7 @@ export const BookInfoContainer = styled.div`
   flex-direction: column;
   border: 3px solid green;
   border-radius: 10px;
-  margin: 40px 40px 10px 40px;
+  margin: 0 40px 10px 40px;
   gap: 10px;
 `;
 
@@ -68,8 +68,6 @@ export const BookAuthor = styled.div`
 
 export const BookDescription = styled.div`
   font-weight: 300;
-
-  overflow: scroll;
 `;
 
 export const ReadingNoteContainer = styled.div`
