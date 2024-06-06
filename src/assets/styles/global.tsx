@@ -62,6 +62,11 @@ a {
   color: inherit;
   text-decoration: none;
 }
+button{
+  background-color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
 
 .ck-editor__editable_inline {
     min-height: 500px;

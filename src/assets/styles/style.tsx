@@ -22,6 +22,7 @@ export const PageContainer = styled.div`
   width: 100%;
   box-sizing: border-box;
   padding-bottom: 40px;
+  min-height: 100vh;
 
   @media ${(props) => props.theme.device.mobile} {
     padding-top: 70px;
@@ -40,7 +41,7 @@ export const PageContainer = styled.div`
 export const SectionTitle = styled.div`
   font-size: 1.4rem;
   font-weight: 500;
-  margin: 20px 40px;
+  margin: 40px 40px 10px 40px;
   span {
     color: green;
     font-weight: 800;
