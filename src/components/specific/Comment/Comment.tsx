@@ -11,20 +11,25 @@ import { GButton, WButton } from "../../../assets/styles/style";
 
 interface CommentProps {
   comment: ParentComment;
+  onDeleteComment: (commentId: string) => void;
 }
 
-export const Comment: React.FC<CommentProps> = ({ comment }) => {
+export const Comment: React.FC<CommentProps> = ({
+  comment,
+  onDeleteComment,
+}) => {
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [replys, setReplys] = useState<ChildComment[]>(comment.childComments);
   const [showModal, setShowModal] = useState(false);
 
   const axiosInstance = useAxiosWithAuth();
 
-  const onDeleteComment = () => {
-    axiosInstance.delete(`/comment/${comment.id}`).then((res) => {
+  const onDeleteReply = (replyId: string) => {
+    axiosInstance.delete(`/comment/${replyId}`).then((res) => {
       if (res.status === 204) {
-        window.alert("댓글이 삭제되었습니다.");
-        closeModalHandler();
+        window.alert("답글이 삭제되었습니다.");
+        const newComments = replys.filter((reply) => reply.id !== replyId);
+        setReplys(newComments);
       }
     });
   };
@@ -70,7 +75,14 @@ export const Comment: React.FC<CommentProps> = ({ comment }) => {
           content={"댓글을 삭제하시겠습니까?"}
         >
           <WButton onClick={closeModalHandler}>취소</WButton>
-          <GButton onClick={onDeleteComment}>확인</GButton>
+          <GButton
+            onClick={() => {
+              onDeleteComment(comment.id);
+              closeModalHandler();
+            }}
+          >
+            확인
+          </GButton>
         </Modal>
       )}
       <S.CommentHeader>
@@ -106,7 +118,7 @@ export const Comment: React.FC<CommentProps> = ({ comment }) => {
       {showReplyInput && (
         <div>
           {replys.map((reply) => (
-            <Reply comment={reply} />
+            <Reply comment={reply} onDeleteReply={onDeleteReply} />
           ))}
           <ReplyCommentInput onSubmitReply={onSubmitReply}></ReplyCommentInput>
         </div>

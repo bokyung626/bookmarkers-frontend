@@ -7,7 +7,7 @@ import {
 } from "../../assets/styles/style";
 import * as Styled from "./style";
 import axios, { AxiosResponse } from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Review } from "../../types/review";
 import dayjs from "dayjs";
 import { UserProfile } from "../../components/common/User/UserProfile";
@@ -26,22 +26,47 @@ export const ViewReviewPage = () => {
   const [modalContent, setModalContent] = useState("");
   const { id } = useParams();
   const axiosInstance = useAxiosWithAuth();
+  const navigete = useNavigate();
 
   useEffect(() => {
     axios.get(`/review/${id}`).then((res: AxiosResponse) => {
-      setReview(res.data);
-      setComments(res.data.comments);
+      // 리뷰가 존재하는 경우
+      if (res.data) {
+        setReview(res.data);
+        setComments(res.data.comments);
 
-      axios
-        .post("/book/searchByISBN", { isbn: res.data.isbn })
-        .then((res: any) => {
-          setBook(res.data.items[0]);
-        });
+        axios
+          .post("/book/searchByISBN", { isbn: res.data.isbn })
+          .then((res: any) => {
+            setBook(res.data.items[0]);
+          });
+      }
     });
   }, [id]);
 
   const closeModalHandler = () => {
     setShowModal(false);
+  };
+
+  const onDeleteReview = () => {
+    axiosInstance.delete(`/review/${review?.id}`).then((res) => {
+      if (res.status === 204) {
+        window.alert("독서노트가 삭제되었습니다.");
+        navigete("/");
+      }
+    });
+  };
+
+  const onDeleteComment = (commentId: string) => {
+    axiosInstance.delete(`/comment/${commentId}`).then((res) => {
+      if (res.status === 204) {
+        window.alert("댓글이 삭제되었습니다.");
+        const newComments = comments.filter(
+          (comment) => comment.id !== commentId
+        );
+        setComments(newComments);
+      }
+    });
   };
 
   const showModalHandler = (title: string, content: string) => {
@@ -68,7 +93,7 @@ export const ViewReviewPage = () => {
     });
   };
 
-  if (!review && !book) return <></>;
+  if (!review) return <PageContainer>존재하지 않는 리뷰입니다.</PageContainer>;
 
   return (
     review && (
@@ -81,7 +106,7 @@ export const ViewReviewPage = () => {
             content={modalContent}
           >
             <WButton onClick={closeModalHandler}>취소</WButton>
-            <GButton>확인</GButton>
+            <GButton onClick={onDeleteReview}>확인</GButton>
           </Modal>
         )}
         <Styled.ReviewContainer>
@@ -124,7 +149,10 @@ export const ViewReviewPage = () => {
         </Styled.ReviewActionContainer>
         <SectionTitle>댓글 {comments.length}개</SectionTitle>
         <CommentInput onSubmitComment={onSubmitComment}></CommentInput>
-        <CommentList comments={comments}></CommentList>
+        <CommentList
+          comments={comments}
+          onDeleteComment={onDeleteComment}
+        ></CommentList>
       </PageContainer>
     )
   );
