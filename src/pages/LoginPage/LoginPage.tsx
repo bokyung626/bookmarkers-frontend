@@ -36,7 +36,11 @@ export const LoginPage: React.FC = () => {
       await axios
         .post("/auth/login", data)
         .then((res) => {
-          localStorage.setItem("accessToken", res.data.accessToken);
+          const user = {
+            accessToken: res.data.accessToken,
+            userData: res.data.userData,
+          };
+          localStorage.setItem("user", JSON.stringify(user));
           navigate("/");
         })
         .catch((error: any) => {

@@ -8,6 +8,7 @@ import { ChildComment, ParentComment } from "../../../types/comment";
 import { Reply } from "./Reply";
 import { Modal } from "../../common/Modal/Modal";
 import { GButton, WButton } from "../../../assets/styles/style";
+import { useUserData } from "../../../hooks/useUserData";
 
 interface CommentProps {
   comment: ParentComment;
@@ -21,6 +22,7 @@ export const Comment: React.FC<CommentProps> = ({
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [replys, setReplys] = useState<ChildComment[]>(comment.childComments);
   const [showModal, setShowModal] = useState(false);
+  const { isAuthUser } = useUserData();
 
   const axiosInstance = useAxiosWithAuth();
 
@@ -95,16 +97,18 @@ export const Comment: React.FC<CommentProps> = ({
             </p>
           </S.CommentInfo>
         </S.CommentProfile>
-        <S.CommentAction>
-          <button>수정</button>
-          <button
-            onClick={() => {
-              showModalHandler();
-            }}
-          >
-            삭제
-          </button>
-        </S.CommentAction>
+        {isAuthUser(comment.user.id) && (
+          <S.CommentAction>
+            <button>수정</button>
+            <button
+              onClick={() => {
+                showModalHandler();
+              }}
+            >
+              삭제
+            </button>
+          </S.CommentAction>
+        )}
       </S.CommentHeader>
       <S.CommentBody>
         <p>{comment.content}</p>

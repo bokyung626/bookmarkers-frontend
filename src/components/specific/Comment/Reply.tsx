@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import { ChildComment } from "../../../types/comment";
 import { Modal } from "../../common/Modal/Modal";
 import { GButton, WButton } from "../../../assets/styles/style";
+import { useUserData } from "../../../hooks/useUserData";
 
 interface ReplyProps {
   comment: ChildComment;
@@ -13,6 +14,7 @@ interface ReplyProps {
 
 export const Reply: React.FC<ReplyProps> = ({ comment, onDeleteReply }) => {
   const [showModal, setShowModal] = useState(false);
+  const { isAuthUser } = useUserData();
 
   const showModalHandler = () => {
     setShowModal(true);
@@ -52,16 +54,18 @@ export const Reply: React.FC<ReplyProps> = ({ comment, onDeleteReply }) => {
             </p>
           </S.CommentInfo>
         </S.CommentProfile>
-        <S.CommentAction>
-          <button>수정</button>
-          <button
-            onClick={() => {
-              showModalHandler();
-            }}
-          >
-            삭제
-          </button>
-        </S.CommentAction>
+        {isAuthUser(comment.user.id) && (
+          <S.CommentAction>
+            <button>수정</button>
+            <button
+              onClick={() => {
+                showModalHandler();
+              }}
+            >
+              삭제
+            </button>
+          </S.CommentAction>
+        )}
       </S.CommentHeader>
       <S.CommentBody>
         <p>{comment.content}</p>

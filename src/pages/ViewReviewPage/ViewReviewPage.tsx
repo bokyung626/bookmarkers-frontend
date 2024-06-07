@@ -16,6 +16,7 @@ import { Modal } from "../../components/common/Modal/Modal";
 import { useAxiosWithAuth } from "../../hooks/useAxiosWithAuth";
 import { CommentInput, CommentList } from "../../components/specific/Comment";
 import { ParentComment } from "../../types/comment";
+import { useUserData } from "../../hooks/useUserData";
 
 export const ViewReviewPage = () => {
   const [review, setReview] = useState<Review | null>(null);
@@ -23,6 +24,7 @@ export const ViewReviewPage = () => {
   const [comments, setComments] = useState<ParentComment[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
+  const { isAuthUser } = useUserData();
   const [modalContent, setModalContent] = useState("");
   const { id } = useParams();
   const axiosInstance = useAxiosWithAuth();
@@ -137,16 +139,24 @@ export const ViewReviewPage = () => {
           <Styled.ReviewMemory>"{review.memory}"</Styled.ReviewMemory>
           <Styled.ReviewContent>{review.content}</Styled.ReviewContent>
         </Styled.ReviewContainer>
-        <Styled.ReviewActionContainer>
-          <GButton>수정</GButton>
-          <GButton
-            onClick={() => {
-              showModalHandler("독서노트 삭제", "정말로 삭제하시겠습니까?");
-            }}
-          >
-            삭제
-          </GButton>
-        </Styled.ReviewActionContainer>
+        {isAuthUser(review.user.id) && (
+          <Styled.ReviewActionContainer>
+            <GButton
+              onClick={() => {
+                navigete(`/review/edit/${review.id}`);
+              }}
+            >
+              수정
+            </GButton>
+            <GButton
+              onClick={() => {
+                showModalHandler("독서노트 삭제", "정말로 삭제하시겠습니까?");
+              }}
+            >
+              삭제
+            </GButton>
+          </Styled.ReviewActionContainer>
+        )}
         <SectionTitle>댓글 {comments.length}개</SectionTitle>
         <CommentInput onSubmitComment={onSubmitComment}></CommentInput>
         <CommentList

@@ -12,9 +12,11 @@ export const useAxiosWithAuth = (): AxiosInstance => {
   // 요청 인터셉터
   axiosWithAuth.interceptors.request.use(
     (config) => {
-      const token = localStorage.getItem("accessToken");
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+      const data = localStorage.getItem("user");
+
+      if (data) {
+        const token = JSON.parse(data);
+        config.headers.Authorization = `Bearer ${token.accessToken}`;
       }
       return config;
     },
