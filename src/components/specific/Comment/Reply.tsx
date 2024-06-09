@@ -11,15 +11,25 @@ import CommentEdit from "./CommentEdit";
 interface ReplyProps {
   comment: ChildComment;
   onDeleteReply: (replyId: string) => void;
+  onUpdateReply: (replyId: string, newContent: string) => void;
 }
 
-export const Reply: React.FC<ReplyProps> = ({ comment, onDeleteReply }) => {
+export const Reply: React.FC<ReplyProps> = ({
+  comment,
+  onDeleteReply,
+  onUpdateReply,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const { isAuthUser } = useUserData();
   const [showEditReplyInput, setShowEditRepyInput] = useState(false);
 
   const showModalHandler = () => {
     setShowModal(true);
+  };
+
+  const onSubmitUpdatedReply = (newContent: string) => {
+    onUpdateReply(comment.id, newContent);
+    EditReplyHandler();
   };
 
   const EditReplyHandler = () => {
@@ -82,7 +92,7 @@ export const Reply: React.FC<ReplyProps> = ({ comment, onDeleteReply }) => {
           <CommentEdit
             originContent={comment.content}
             onClose={EditReplyHandler}
-            onSubmitComment={() => {}}
+            onSubmitComment={onSubmitUpdatedReply}
           ></CommentEdit>
         ) : (
           <p>{comment.content}</p>

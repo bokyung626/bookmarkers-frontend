@@ -14,11 +14,13 @@ import CommentEdit from "./CommentEdit";
 interface CommentProps {
   comment: ParentComment;
   onDeleteComment: (commentId: string) => void;
+  onUpdateComment: (commentId: string, newContent: string) => void;
 }
 
 export const Comment: React.FC<CommentProps> = ({
   comment,
   onDeleteComment,
+  onUpdateComment,
 }) => {
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [showEditCommentInput, setShowEditCommentInput] = useState(false);
@@ -28,23 +30,16 @@ export const Comment: React.FC<CommentProps> = ({
 
   const axiosInstance = useAxiosWithAuth();
 
-  const onDeleteReply = (replyId: string) => {
-    axiosInstance.delete(`/comment/${replyId}`).then((res) => {
-      if (res.status === 204) {
-        const newComments = replys.filter((reply) => reply.id !== replyId);
-        setReplys(newComments);
-      }
-    });
-  };
+  // Reply Method
 
-  const onSubmitReply = (content: string) => {
-    if (content === "") {
+  const onSubmitReply = (newContent: string) => {
+    if (newContent === "") {
       window.alert("댓글을 작성해 주세요.");
       return;
     }
 
     const data = {
-      content: content,
+      content: newContent,
       reviewId: comment.reviewId,
       parentCommentId: comment.id,
     };
@@ -56,8 +51,42 @@ export const Comment: React.FC<CommentProps> = ({
     });
   };
 
+  const onUpdateReply = (replyId: string, newContent: string) => {
+    axiosInstance
+      .patch(`/comment/${replyId}`, { content: newContent })
+      .then((res) => {
+        if (res.status === 201) {
+          const newReplys = replys.map((reply) =>
+            reply.id === replyId ? { ...reply, content: newContent } : reply
+          );
+
+          setReplys(newReplys);
+        }
+      });
+  };
+
+  const onSubmitUpdatedComment = (newContent: string) => {
+    onUpdateComment(comment.id, newContent);
+    EditCommentHandler();
+  };
+
+  const onDeleteReply = (replyId: string) => {
+    axiosInstance.delete(`/comment/${replyId}`).then((res) => {
+      if (res.status === 204) {
+        const newComments = replys.filter((reply) => reply.id !== replyId);
+        setReplys(newComments);
+      }
+    });
+  };
+
+  // show UI Method
+
   const EditCommentHandler = () => {
     setShowEditCommentInput(!showEditCommentInput);
+  };
+
+  const replyInputHandler = () => {
+    setShowReplyInput(!showReplyInput);
   };
 
   const showModalHandler = () => {
@@ -66,10 +95,6 @@ export const Comment: React.FC<CommentProps> = ({
 
   const closeModalHandler = () => {
     setShowModal(false);
-  };
-
-  const replyInputHandler = () => {
-    setShowReplyInput(!showReplyInput);
   };
 
   return (
@@ -124,7 +149,7 @@ export const Comment: React.FC<CommentProps> = ({
           <CommentEdit
             originContent={comment.content}
             onClose={EditCommentHandler}
-            onSubmitComment={() => {}}
+            onSubmitComment={onSubmitUpdatedComment}
           ></CommentEdit>
         ) : (
           <p>{comment.content}</p>
@@ -139,7 +164,11 @@ export const Comment: React.FC<CommentProps> = ({
       {showReplyInput && (
         <div>
           {replys.map((reply) => (
-            <Reply comment={reply} onDeleteReply={onDeleteReply} />
+            <Reply
+              comment={reply}
+              onDeleteReply={onDeleteReply}
+              onUpdateReply={onUpdateReply}
+            />
           ))}
           <ReplyCommentInput onSubmitReply={onSubmitReply}></ReplyCommentInput>
         </div>
