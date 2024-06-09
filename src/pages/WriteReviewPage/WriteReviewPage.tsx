@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useRef, useCallback } from "react";
+import React, { ChangeEvent, useState } from "react";
 import {
   GButton,
   Input,
@@ -39,7 +39,7 @@ export const WriteReviewPage = () => {
     axiosInstance.post("/review", data).then((res) => {
       if (res.status === 201) {
         window.alert("독서노트가 작성되었습니다.");
-        navigate(`/review/view/${res.data}`);
+        navigate(`/review/${res.data}`);
       }
     });
   };

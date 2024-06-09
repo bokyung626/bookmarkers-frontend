@@ -44,7 +44,10 @@ export const RegisterPage: React.FC = () => {
     };
 
     axios.post("/auth/register", data).then((res) => {
-      navigate("/");
+      if (res.status === 200) {
+        window.alert("회원가입 되었습니다.");
+        navigate("/login");
+      }
     });
   };
 

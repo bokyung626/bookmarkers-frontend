@@ -19,6 +19,7 @@ export const BookInfoPage = () => {
   const [reviews, setReviews] = useState([]);
   const [copynotes, setCopynotes] = useState([]);
   const [book, setBook] = useState<Book | null>(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export const BookInfoPage = () => {
   }, []);
 
   const onClickCardHandler = (postId: string) => {
-    navigate(`/review/view/${postId}`);
+    navigate(`/review/${postId}`);
   };
 
   if (!book)

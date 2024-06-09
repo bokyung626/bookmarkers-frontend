@@ -1,22 +1,15 @@
 import React from "react";
 import { RightMenuContainer, AuthMenu, Br, LogoutButton } from "./style";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 export const RightMenu = () => {
   const navigation = useNavigate();
 
-  const isLogin = !!localStorage.getItem("accessToken");
-
-  // const onLogoutHandler = () => {
-  //   axios("/book/search").then((res) => {
-  //     console.log(res);
-  //   });
-  // };
+  const isLogin = !!localStorage.getItem("user");
 
   // 로그아웃 이벤트 핸들러
   const onLogoutHandler = () => {
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
     alert("로그아웃 되었습니다.");
     navigation("/");
   };

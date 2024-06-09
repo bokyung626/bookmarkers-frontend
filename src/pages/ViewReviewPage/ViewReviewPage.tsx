@@ -46,10 +46,6 @@ export const ViewReviewPage = () => {
     });
   }, [id]);
 
-  const closeModalHandler = () => {
-    setShowModal(false);
-  };
-
   const onDeleteReview = () => {
     axiosInstance.delete(`/review/${review?.id}`).then((res) => {
       if (res.status === 204) {
@@ -59,16 +55,8 @@ export const ViewReviewPage = () => {
     });
   };
 
-  const onDeleteComment = (commentId: string) => {
-    axiosInstance.delete(`/comment/${commentId}`).then((res) => {
-      if (res.status === 204) {
-        window.alert("댓글이 삭제되었습니다.");
-        const newComments = comments.filter(
-          (comment) => comment.id !== commentId
-        );
-        setComments(newComments);
-      }
-    });
+  const closeModalHandler = () => {
+    setShowModal(false);
   };
 
   const showModalHandler = (title: string, content: string) => {
@@ -76,6 +64,8 @@ export const ViewReviewPage = () => {
     setModalContent(content);
     setShowModal(true);
   };
+
+  // Comment Method
 
   const onSubmitComment = (content: string) => {
     if (content === "") {
@@ -93,6 +83,34 @@ export const ViewReviewPage = () => {
         setComments([...comments, res.data]);
       }
     });
+  };
+
+  const onDeleteComment = (commentId: string) => {
+    axiosInstance.delete(`/comment/${commentId}`).then((res) => {
+      if (res.status === 204) {
+        window.alert("댓글이 삭제되었습니다.");
+        const newComments = comments.filter(
+          (comment) => comment.id !== commentId
+        );
+        setComments(newComments);
+      }
+    });
+  };
+
+  const onUpdateComment = (commentId: string, newContent: string) => {
+    axiosInstance
+      .patch(`/comment/${commentId}`, { content: newContent })
+      .then((res) => {
+        if (res.status === 201) {
+          const newComments = comments.map((comment) =>
+            comment.id === commentId
+              ? { ...comment, content: newContent }
+              : comment
+          );
+
+          setComments(newComments);
+        }
+      });
   };
 
   if (!review) return <PageContainer>존재하지 않는 리뷰입니다.</PageContainer>;
@@ -161,6 +179,7 @@ export const ViewReviewPage = () => {
         <CommentInput onSubmitComment={onSubmitComment}></CommentInput>
         <CommentList
           comments={comments}
+          onUpdateComment={onUpdateComment}
           onDeleteComment={onDeleteComment}
         ></CommentList>
       </PageContainer>
