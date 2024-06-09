@@ -14,6 +14,7 @@ import { ViewReviewPage } from "./pages/ViewReviewPage/ViewReviewPage";
 import { ReviewMainPage } from "./pages/ReviewMainPage/ReviewMainPage";
 import { CopyNoteMainPage } from "./pages/CopyNoteMainPage/CopyNoteMainPage";
 import { Footer } from "./components/common/Footer/Footer";
+import { UpdateReviewPage } from "./pages/UpdateReviewPage/UpdateReviewPage";
 
 const App: React.FC = () => {
   axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -29,10 +30,11 @@ const App: React.FC = () => {
         <Route path="/register" Component={RegisterPage} />
         <Route path="/booklist/:id" Component={BookListPage} />
         <Route path="/bookinfo/:id" Component={BookInfoPage} />
-        <Route path="/review/view/:id" Component={ViewReviewPage} />
+        <Route path="/review/:id" Component={ViewReviewPage} />
         <Route element={<PrivateRoute />}>
           <Route path="/mypage" Component={MyPage} />
           <Route path="/review/write/:id" Component={WriteReviewPage} />
+          <Route path="/review/edit/:id" Component={UpdateReviewPage} />
         </Route>
       </Routes>
       <Footer />
