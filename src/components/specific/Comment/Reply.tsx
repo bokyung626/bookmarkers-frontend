@@ -6,6 +6,7 @@ import { ChildComment } from "../../../types/comment";
 import { Modal } from "../../common/Modal/Modal";
 import { GButton, WButton } from "../../../assets/styles/style";
 import { useUserData } from "../../../hooks/useUserData";
+import CommentEdit from "./CommentEdit";
 
 interface ReplyProps {
   comment: ChildComment;
@@ -15,9 +16,14 @@ interface ReplyProps {
 export const Reply: React.FC<ReplyProps> = ({ comment, onDeleteReply }) => {
   const [showModal, setShowModal] = useState(false);
   const { isAuthUser } = useUserData();
+  const [showEditReplyInput, setShowEditRepyInput] = useState(false);
 
   const showModalHandler = () => {
     setShowModal(true);
+  };
+
+  const EditReplyHandler = () => {
+    setShowEditRepyInput(!showEditReplyInput);
   };
 
   const closeModalHandler = () => {
@@ -56,7 +62,11 @@ export const Reply: React.FC<ReplyProps> = ({ comment, onDeleteReply }) => {
         </S.CommentProfile>
         {isAuthUser(comment.user.id) && (
           <S.CommentAction>
-            <button>수정</button>
+            {showEditReplyInput ? (
+              <></>
+            ) : (
+              <button onClick={EditReplyHandler}>수정</button>
+            )}
             <button
               onClick={() => {
                 showModalHandler();
@@ -68,7 +78,15 @@ export const Reply: React.FC<ReplyProps> = ({ comment, onDeleteReply }) => {
         )}
       </S.CommentHeader>
       <S.CommentBody>
-        <p>{comment.content}</p>
+        {showEditReplyInput ? (
+          <CommentEdit
+            originContent={comment.content}
+            onClose={EditReplyHandler}
+            onSubmitComment={() => {}}
+          ></CommentEdit>
+        ) : (
+          <p>{comment.content}</p>
+        )}
       </S.CommentBody>
     </S.ReplyContainer>
   );

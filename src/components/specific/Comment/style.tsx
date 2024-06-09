@@ -9,6 +9,16 @@ export const WriteCommentContainer = styled.div`
   gap: 10px;
 `;
 
+export const WriteCommentEditContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 40px;
+
+  align-items: flex-end;
+  gap: 10px;
+`;
+
 export const WriteReplyContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -72,6 +82,11 @@ export const CommentAction = styled.div`
     font-weight: 600;
     background-color: transparent;
   }
+`;
+
+export const CommentEditAction = styled.div`
+  display: flex;
+  gap: 5px;
 `;
 
 export const CommentProfile = styled.div`

@@ -9,6 +9,7 @@ import { Reply } from "./Reply";
 import { Modal } from "../../common/Modal/Modal";
 import { GButton, WButton } from "../../../assets/styles/style";
 import { useUserData } from "../../../hooks/useUserData";
+import CommentEdit from "./CommentEdit";
 
 interface CommentProps {
   comment: ParentComment;
@@ -20,6 +21,7 @@ export const Comment: React.FC<CommentProps> = ({
   onDeleteComment,
 }) => {
   const [showReplyInput, setShowReplyInput] = useState(false);
+  const [showEditCommentInput, setShowEditCommentInput] = useState(false);
   const [replys, setReplys] = useState<ChildComment[]>(comment.childComments);
   const [showModal, setShowModal] = useState(false);
   const { isAuthUser } = useUserData();
@@ -29,7 +31,6 @@ export const Comment: React.FC<CommentProps> = ({
   const onDeleteReply = (replyId: string) => {
     axiosInstance.delete(`/comment/${replyId}`).then((res) => {
       if (res.status === 204) {
-        window.alert("답글이 삭제되었습니다.");
         const newComments = replys.filter((reply) => reply.id !== replyId);
         setReplys(newComments);
       }
@@ -53,6 +54,10 @@ export const Comment: React.FC<CommentProps> = ({
         setReplys([...replys, res.data]);
       }
     });
+  };
+
+  const EditCommentHandler = () => {
+    setShowEditCommentInput(!showEditCommentInput);
   };
 
   const showModalHandler = () => {
@@ -99,7 +104,11 @@ export const Comment: React.FC<CommentProps> = ({
         </S.CommentProfile>
         {isAuthUser(comment.user.id) && (
           <S.CommentAction>
-            <button>수정</button>
+            {showEditCommentInput ? (
+              <></>
+            ) : (
+              <button onClick={EditCommentHandler}>수정</button>
+            )}
             <button
               onClick={() => {
                 showModalHandler();
@@ -111,7 +120,15 @@ export const Comment: React.FC<CommentProps> = ({
         )}
       </S.CommentHeader>
       <S.CommentBody>
-        <p>{comment.content}</p>
+        {showEditCommentInput ? (
+          <CommentEdit
+            originContent={comment.content}
+            onClose={EditCommentHandler}
+            onSubmitComment={() => {}}
+          ></CommentEdit>
+        ) : (
+          <p>{comment.content}</p>
+        )}
       </S.CommentBody>
       <S.CommentOption>
         <button className="write-reply" onClick={replyInputHandler}>
