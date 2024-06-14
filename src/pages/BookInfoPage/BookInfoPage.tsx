@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  CardContainer,
-  PageContainer,
-  SectionTitle,
-} from "../../assets/styles/style";
+import { PageContainer, SectionTitle } from "../../assets/styles/style";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import * as Styled from "./style";
-import dayjs from "dayjs";
-import { Review } from "../../types/review";
 import { Book } from "../../types/book";
-import textSlicer from "../../utils/textSlicer";
-import { UserProfile } from "../../components/common/User/UserProfile";
+import { ReviewList } from "../../components/specific/ReviewList/ReviewList";
 
 export const BookInfoPage = () => {
   const { id } = useParams();
@@ -29,14 +21,10 @@ export const BookInfoPage = () => {
       }
     });
 
-    axios.get(`/review/isbn/${id}`).then((res) => {
+    axios.get(`/review?isbn=${id}`).then((res) => {
       setReviews(res.data);
     });
   }, []);
-
-  const onClickCardHandler = (postId: string) => {
-    navigate(`/review/${postId}`);
-  };
 
   if (!book)
     return (
@@ -80,31 +68,7 @@ export const BookInfoPage = () => {
           <span>아직 이 책의 독서노트가 없습니다..</span>
         )}
       </Styled.ReadingNoteContainer>
-      <CardContainer>
-        {reviews.map((review: Review) => (
-          <Card
-            key={review.id}
-            onClick={() => {
-              onClickCardHandler(review.id);
-            }}
-          >
-            <Styled.ImageContainer>
-              <Styled.CardImage src={book.image} alt={book.title} />
-            </Styled.ImageContainer>
-            <Styled.CardContent>
-              <h4>{textSlicer(review.title, 15)}</h4>
-              <p className="post-content">{textSlicer(review.content, 30)}</p>
-              <p className="post-day">
-                {dayjs(review.createdAt).format("YYYY-MM-DD")}
-              </p>
-            </Styled.CardContent>
-            <UserProfile
-              url={review.user.profileImage}
-              nickname={review.user.nickname}
-            ></UserProfile>
-          </Card>
-        ))}
-      </CardContainer>
+      <ReviewList reviews={reviews}></ReviewList>
       <SectionTitle>이 책의 필사노트</SectionTitle>
       <Styled.CopyNoteContainer>
         {copynotes.length > 0 ? (
