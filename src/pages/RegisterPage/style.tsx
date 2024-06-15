@@ -21,6 +21,10 @@ export const RegisterFormWrapper = styled.div`
   gap: 10px;
 `;
 
+export const AlertMsg = styled.small`
+  color: green;
+`;
+
 export const RegisterForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -29,4 +33,6 @@ export const RegisterForm = styled.form`
 
 export const RegisterButton = styled.button`
   padding: 10px;
+  background-color: green;
+  color: white;
 `;
