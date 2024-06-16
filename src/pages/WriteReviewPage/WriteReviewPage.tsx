@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, useRef } from "react";
 import {
   GButton,
   Input,
@@ -6,7 +6,7 @@ import {
   SectionTitle,
   TextArea,
 } from "../../assets/styles/style";
-import { BookReadingContainer } from "./style";
+import { BookReadingContainer, ThumnailBox } from "./style";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAxiosWithAuth } from "../../hooks/useAxiosWithAuth";
 import { AutoResizeTextarea } from "../../components/common/AutoResizeTextarea/AutoResizeTextarea";
@@ -14,14 +14,42 @@ import { AutoResizeTextarea } from "../../components/common/AutoResizeTextarea/A
 const CONTENT_LIMIT = 1000;
 const MEMORY_LIMIT = 300;
 const TITLE_LIMIT = 30;
+const MAX_FILE_SIZE = 3 * 1024 * 1024;
 
 export const WriteReviewPage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [memory, setMemory] = useState("");
+  const [thumnail, setThumnail] = useState("");
+  const [image, setImage] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
   const axiosInstance = useAxiosWithAuth();
+
+  const fileInput = useRef<HTMLInputElement | null>(null);
+
+  const onChange = (e: any) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > MAX_FILE_SIZE) {
+        window.alert("파일 용량은 3MB를 초과할 수 없습니다.");
+        return;
+      }
+      setThumnail(e.target.files[0]);
+    } else {
+      //업로드 취소할 시
+      setImage("");
+      return;
+    }
+    //화면에 사진 표시
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImage(reader.result as string);
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
 
   const onSubmitHandler = () => {
     if (title === "" || content === "") {
@@ -32,6 +60,7 @@ export const WriteReviewPage = () => {
     const data = {
       title: title,
       content: content,
+      image: "",
       memory: memory,
       isbn: id,
     };
@@ -90,6 +119,22 @@ export const WriteReviewPage = () => {
           value={memory}
         ></AutoResizeTextarea>
         <span>{memory.length}/300</span>
+        <span>썸네일 업로드</span>
+        <ThumnailBox
+          onClick={() => {
+            if (fileInput.current) fileInput.current.click();
+          }}
+        >
+          <img src={image} alt="" />
+        </ThumnailBox>
+        <input
+          type="file"
+          style={{ display: "none" }}
+          accept="image/jpg,image/png,image/jpeg"
+          name="profile_img"
+          onChange={onChange}
+          ref={fileInput}
+        />
         <GButton onClick={onSubmitHandler}>독서노트 작성</GButton>
       </BookReadingContainer>
     </PageContainer>
