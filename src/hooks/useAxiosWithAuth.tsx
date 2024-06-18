@@ -1,4 +1,3 @@
-import React from "react";
 import axios, { AxiosInstance } from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -43,15 +42,28 @@ export const useAxiosWithAuth = (): AxiosInstance => {
       // access token 만료 시 리프레시 토큰 재발급 요청
       if (error.response.status === 403) {
         try {
-          const res = await axios.post("/auth/refresh", {
-            accessToken: localStorage.getItem("accessToken"),
-          });
-          const newAccessToken = res.data.accessToken;
-          localStorage.setItem("accessToken", newAccessToken);
+          const data = localStorage.getItem("user");
 
-          // 재발급 받은 액세스 토큰을 사용해 요청을 다시 실행
-          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-          return axiosWithAuth(originalRequest);
+          if (data) {
+            const token = JSON.parse(data);
+
+            const res = await axios.post("/auth/refresh", {
+              accessToken: token.accessToken,
+            });
+
+            const newAccessToken = res.data.accessToken;
+
+            const user = {
+              accessToken: newAccessToken,
+              userData: token.userData,
+            };
+
+            localStorage.setItem("user", JSON.stringify(user));
+
+            // 재발급 받은 액세스 토큰을 사용해 요청을 다시 실행
+            originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+            return axiosWithAuth(originalRequest);
+          }
         } catch (err) {
           console.error("Failed to refresh token", err);
           window.alert("로그인 세션이 만료되었습니다. 다시 로그인 해주세요.");
