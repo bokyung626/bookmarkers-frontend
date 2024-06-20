@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useRef } from "react";
+import React, { ChangeEvent, useState, useRef, useEffect } from "react";
 import {
   GButton,
   Input,
@@ -10,32 +10,42 @@ import { BookReadingContainer, ThumnailBox } from "./style";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAxiosWithAuth } from "../../hooks/useAxiosWithAuth";
 import { AutoResizeTextarea } from "../../components/common/AutoResizeTextarea/AutoResizeTextarea";
+import axios from "axios";
+import { Book } from "../../types/book";
 
 const CONTENT_LIMIT = 1000;
 const MEMORY_LIMIT = 300;
 const TITLE_LIMIT = 30;
-const MAX_FILE_SIZE = 3 * 1024 * 1024;
+const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
 export const WriteReviewPage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [memory, setMemory] = useState("");
-  const [thumnail, setThumnail] = useState("");
+  const [thumnailFile, setThumnailFile] = useState("");
   const [image, setImage] = useState("");
+  const [book, setBook] = useState<Book | null>(null);
   const { id } = useParams();
   const navigate = useNavigate();
   const axiosInstance = useAxiosWithAuth();
-
   const fileInput = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    axios.post("/book/searchByISBN", { isbn: id }).then((res: any) => {
+      if (res.data.items.length > 0) {
+        setBook(res.data.items[0]);
+      }
+    });
+  }, [id]);
 
   const onChange = (e: any) => {
     const file = e.target.files[0];
     if (file) {
       if (file.size > MAX_FILE_SIZE) {
-        window.alert("파일 용량은 3MB를 초과할 수 없습니다.");
+        window.alert("파일 용량은 2MB를 초과할 수 없습니다.");
         return;
       }
-      setThumnail(e.target.files[0]);
+      setThumnailFile(file);
     } else {
       //업로드 취소할 시
       setImage("");
@@ -57,20 +67,31 @@ export const WriteReviewPage = () => {
       return;
     }
 
-    const data = {
-      title: title,
-      content: content,
-      image: "",
-      memory: memory,
-      isbn: id,
-    };
+    const formData = new FormData();
 
-    axiosInstance.post("/review", data).then((res) => {
-      if (res.status === 201) {
-        window.alert("독서노트가 작성되었습니다.");
-        navigate(`/review/${res.data}`);
-      }
-    });
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("memory", memory);
+    formData.append("isbn", id!);
+
+    if (thumnailFile) {
+      formData.append("file", thumnailFile);
+    } else {
+      if (book) formData.append("image", book.image);
+    }
+
+    axiosInstance
+      .post("/review", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          window.alert("독서노트가 작성되었습니다.");
+          navigate(`/review/${res.data}`);
+        }
+      });
   };
 
   const inputTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -96,6 +117,10 @@ export const WriteReviewPage = () => {
       setMemory(e.target.value.slice(0, MEMORY_LIMIT));
     }
   };
+
+  if (!book) {
+    return <PageContainer>유효하지 않은 도서에 대한 접근입니다.</PageContainer>;
+  }
 
   return (
     <PageContainer>
