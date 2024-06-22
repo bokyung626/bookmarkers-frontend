@@ -29,6 +29,8 @@ export const LoginForm = styled.form`
 
 export const LoginButton = styled.button`
   padding: 10px;
+  background-color: green;
+  color: white;
 `;
 
 export const ErrorMsg = styled.p`
