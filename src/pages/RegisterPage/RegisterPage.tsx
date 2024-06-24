@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -16,8 +16,8 @@ export const RegisterPage: React.FC = () => {
 
   const emailRegEx =
     /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
-  const nicknameRegEx = /^[가-힣a-zA-Z]+$/;
-  // 폼 제출
+  const nicknameRegEx = /^[가-힣a-zA-Z]{2,8}$/;
+
   const onSubmitRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
@@ -30,16 +30,21 @@ export const RegisterPage: React.FC = () => {
       return;
     }
 
+    // 닉네임 유효성 검사
     if (!nicknameRegEx.test(nickname)) {
-      setAlert("유효하지 않은 닉네임 형식입니다.");
+      setAlert(
+        "유효하지 않은 닉네임 형식입니다. 닉네임은 2~8자의 한글이나 영어로만 구성된 문자여야 합니다."
+      );
       return;
     }
 
+    // 이메일 유효성 검사
     if (!emailRegEx.test(email)) {
       setAlert("유효하지 않은 이메일 형식 입니다.");
       return;
     }
 
+    // 비밀번호 일치 여부
     if (password !== checkPassword) {
       setAlert("비밀번호가 일치하지 않습니다.");
       return;
@@ -62,6 +67,10 @@ export const RegisterPage: React.FC = () => {
       .catch((error) => {
         if (error.response.status === 400) {
           setAlert("이미 존재하는 이메일 입니다.");
+        }
+
+        if (error.response.status === 401) {
+          setAlert("이미 존재하는 닉네임 입니다.");
         }
       });
   };
