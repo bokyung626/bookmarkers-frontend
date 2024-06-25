@@ -39,12 +39,21 @@ export const PageContainer = styled.div`
 `;
 
 export const SectionTitle = styled.div`
-  font-size: 1.4rem;
-  font-weight: 500;
   margin: 40px 40px 10px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: certer;
+
   span {
-    color: green;
-    font-weight: 800;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
+  .more {
+    color: gray;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 500;
   }
 `;
 
@@ -63,43 +72,5 @@ export const TextArea = styled.textarea`
 
   &:focus {
     outline: none;
-  }
-`;
-
-export const CardContainer = styled.div`
-  display: inline-flex;
-  flex-wrap: wrap;
-  padding: 0 40px;
-  gap: 10px;
-  box-sizing: border-box;
-`;
-
-export const Card = styled.div`
-  border-radius: 10px;
-  border: 2px solid green;
-  box-sizing: border-box;
-  overflow: hidden;
-  gap: 10px;
-  width: calc(100% / 5 - 8px);
-  height: 300px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #f1f1f1;
-    transform: scale(1.02);
-  }
-
-  //1056
-  @media ${({ theme }) => theme.device.laptop} {
-    width: calc(100% / 4 - 8px);
-  }
-
-  @media ${({ theme }) => theme.device.tablet} {
-    width: calc(100% / 3 - 9px);
-  }
-
-  //767
-  @media ${({ theme }) => theme.device.mobile} {
-    width: 100%;
   }
 `;

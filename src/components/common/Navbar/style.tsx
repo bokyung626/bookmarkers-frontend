@@ -64,7 +64,7 @@ export const Br = styled.div`
 `;
 
 interface LinkMenuProps {
-  active: boolean;
+  active: boolean | undefined;
 }
 
 export const LinkMenu = styled(Link)<LinkMenuProps>`
@@ -80,7 +80,7 @@ export const LinkMenu = styled(Link)<LinkMenuProps>`
   }
 `;
 
-export const AuthMenu = styled(Link)`
+export const Menu = styled(Link)`
   font-size: 1rem;
   text-decoration: none;
   font-weight: 500;
@@ -88,12 +88,13 @@ export const AuthMenu = styled(Link)`
 `;
 
 export const LogoutButton = styled.button`
-  font-size: 1rem;
   text-decoration: none;
-  font-weight: 600;
-  color: black;
   border-color: none;
   border: none;
   background-color: white;
+  font-size: 1rem;
+  text-decoration: none;
+  font-weight: 500;
+  color: black;
   cursor: pointer;
 `;

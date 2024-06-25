@@ -19,6 +19,18 @@ export const ReviewInfo = styled.div`
   padding: 10px 0;
 `;
 
+export const ReviewImage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 10px;
+
+  img {
+    max-width: 500px;
+  }
+`;
+
 export const ReviewHeader = styled.div`
   width: 100%;
 `;
@@ -38,6 +50,7 @@ export const BookInfoContainer = styled.div`
   border-bottom: 1px solid green;
   color: #494949;
   font-size: 0.9rem;
+  cursor: pointer;
 `;
 
 export const BookImage = styled.div`

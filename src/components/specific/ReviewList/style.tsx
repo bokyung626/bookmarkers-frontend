@@ -40,9 +40,9 @@ export const CardLayout = styled.div`
   gap: 10px;
   width: calc(100% / 5 - 8px);
   cursor: pointer;
+  transition: 0.3s;
 
   &:hover {
-    background-color: #f1f1f1;
     transform: scale(1.02);
   }
 
