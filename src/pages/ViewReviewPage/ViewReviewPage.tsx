@@ -28,7 +28,7 @@ export const ViewReviewPage = () => {
   const [modalContent, setModalContent] = useState("");
   const { id } = useParams();
   const axiosInstance = useAxiosWithAuth();
-  const navigete = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`/review/${id}`).then((res: AxiosResponse) => {
@@ -49,8 +49,7 @@ export const ViewReviewPage = () => {
   const onDeleteReview = () => {
     axiosInstance.delete(`/review/${review?.id}`).then((res) => {
       if (res.status === 204) {
-        window.alert("독서노트가 삭제되었습니다.");
-        navigete("/");
+        navigate("/");
       }
     });
   };
@@ -88,7 +87,6 @@ export const ViewReviewPage = () => {
   const onDeleteComment = (commentId: string) => {
     axiosInstance.delete(`/comment/${commentId}`).then((res) => {
       if (res.status === 204) {
-        window.alert("댓글이 삭제되었습니다.");
         const newComments = comments.filter(
           (comment) => comment.id !== commentId
         );
@@ -141,7 +139,11 @@ export const ViewReviewPage = () => {
             </Styled.ReviewInfo>
           </Styled.ReviewHeader>
           {book && (
-            <Styled.BookInfoContainer>
+            <Styled.BookInfoContainer
+              onClick={() => {
+                navigate(`/bookinfo/${book.isbn}`);
+              }}
+            >
               <Styled.BookImage>
                 <img src={book.image} alt={book.title} />
               </Styled.BookImage>
@@ -154,6 +156,9 @@ export const ViewReviewPage = () => {
               </Styled.BookInfoWarraper>
             </Styled.BookInfoContainer>
           )}
+          <Styled.ReviewImage>
+            <img src={review.image} alt={review.id} />
+          </Styled.ReviewImage>
           <Styled.ReviewMemory>"{review.memory}"</Styled.ReviewMemory>
           <Styled.ReviewContent>{review.content}</Styled.ReviewContent>
         </Styled.ReviewContainer>
@@ -161,7 +166,7 @@ export const ViewReviewPage = () => {
           <Styled.ReviewActionContainer>
             <GButton
               onClick={() => {
-                navigete(`/review/edit/${review.id}`);
+                navigate(`/review/edit/${review.id}`);
               }}
             >
               수정
@@ -175,7 +180,9 @@ export const ViewReviewPage = () => {
             </GButton>
           </Styled.ReviewActionContainer>
         )}
-        <SectionTitle>댓글 {comments.length}개</SectionTitle>
+        <SectionTitle>
+          <span>댓글 {comments.length}개</span>
+        </SectionTitle>
         <CommentInput onSubmitComment={onSubmitComment}></CommentInput>
         <CommentList
           comments={comments}

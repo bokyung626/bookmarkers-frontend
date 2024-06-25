@@ -35,7 +35,9 @@ export const BookInfoPage = () => {
 
   return (
     <PageContainer>
-      <SectionTitle>도서 정보</SectionTitle>
+      <SectionTitle>
+        <span>도서 정보</span>
+      </SectionTitle>
       <Styled.BookInfoContainer>
         <Styled.BookInfoMenu></Styled.BookInfoMenu>
         <Styled.BooKInfoWrapper>
@@ -60,7 +62,9 @@ export const BookInfoPage = () => {
           독서노트 작성
         </Styled.WriteReadingNoteButton>
       </Styled.ButtonContainer>
-      <SectionTitle>이 책의 독서노트</SectionTitle>
+      <SectionTitle>
+        <span>이 책의 독서노트</span>
+      </SectionTitle>
       <Styled.ReadingNoteContainer>
         {reviews.length > 0 ? (
           <></>
@@ -69,7 +73,9 @@ export const BookInfoPage = () => {
         )}
       </Styled.ReadingNoteContainer>
       <ReviewList reviews={reviews}></ReviewList>
-      <SectionTitle>이 책의 필사노트</SectionTitle>
+      <SectionTitle>
+        <span>이 책의 필사노트</span>
+      </SectionTitle>
       <Styled.CopyNoteContainer>
         {copynotes.length > 0 ? (
           <></>

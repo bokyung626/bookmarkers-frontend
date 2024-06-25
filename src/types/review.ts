@@ -7,6 +7,7 @@ export interface Review {
   content: string;
   memory: string;
   createdAt: Date;
+  image: string;
   isbn: string;
   user: User;
   comments: ParentComment[];

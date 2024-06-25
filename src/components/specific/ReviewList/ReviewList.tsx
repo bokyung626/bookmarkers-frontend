@@ -11,7 +11,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({ reviews }) => {
   return (
     <S.CardContainer>
       {reviews.map((review) => (
-        <ReviewCard review={review}></ReviewCard>
+        <ReviewCard key={review.id} review={review}></ReviewCard>
       ))}
     </S.CardContainer>
   );

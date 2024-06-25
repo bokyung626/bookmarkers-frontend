@@ -1,5 +1,5 @@
 import React from "react";
-import { RightMenuContainer, AuthMenu, Br, LogoutButton } from "./style";
+import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 
 export const RightMenu = () => {
@@ -15,26 +15,20 @@ export const RightMenu = () => {
   };
 
   return (
-    <RightMenuContainer>
+    <S.RightMenuContainer>
       {isLogin ? (
-        <LogoutButton onClick={onLogoutHandler}>로그아웃</LogoutButton>
+        <>
+          {/* <S.Menu to="/mypage">마이 페이지</S.Menu>
+          <S.Br></S.Br> */}
+          <S.LogoutButton onClick={onLogoutHandler}>로그아웃</S.LogoutButton>
+        </>
       ) : (
         <>
-          <AuthMenu to="/login">로그인</AuthMenu>
-          <Br></Br>
-          <AuthMenu to="/register">회원가입</AuthMenu>
+          <S.Menu to="/login">로그인</S.Menu>
+          <S.Br></S.Br>
+          <S.Menu to="/register">회원가입</S.Menu>
         </>
       )}
-    </RightMenuContainer>
+    </S.RightMenuContainer>
   );
-  //   <RightMenuContainer>
-  //     <StyledLogoutButton onClick={onLogoutHandler}>
-  //       로그아웃
-  //     </StyledLogoutButton>
-  //   </RightMenuContainer>
-  // ) : (
-  //   <RightMenuContainer>
-  //     <StyledLink to="/login">로그인</StyledLink>
-  //     <StyledLink to="/register">회원가입</StyledLink>
-  //   </RightMenuContainer>
 };

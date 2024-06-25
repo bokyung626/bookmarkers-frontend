@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PageContainer } from "../../assets/styles/style";
+import { PageContainer, SectionTitle } from "../../assets/styles/style";
 import { ReviewList } from "../../components/specific/ReviewList/ReviewList";
 import axios from "axios";
 import { ReviewSearch } from "../../components/specific/ReviewSearch/ReviewSearch";
@@ -25,7 +25,13 @@ export const ReviewMainPage = () => {
   return (
     <PageContainer>
       <ReviewSearch onSearch={onSearch} />
-      <ReviewList reviews={reviews} />
+      {reviews.length > 0 ? (
+        <ReviewList reviews={reviews} />
+      ) : (
+        <SectionTitle>
+          <span>독서노트가 없습니다.</span>
+        </SectionTitle>
+      )}
     </PageContainer>
   );
 };

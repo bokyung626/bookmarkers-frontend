@@ -9,10 +9,13 @@ export const LeftMenu = () => {
   return (
     <LeftMenuContainer>
       <Logo to="/">북마커스</Logo>
-      <LinkMenu to="/review" active={isActive("/review")}>
+      <LinkMenu to="/review" active={isActive("/review") ? true : undefined}>
         독서노트
       </LinkMenu>
-      <LinkMenu to="/copynote" active={isActive("/copynote")}>
+      <LinkMenu
+        to="/copynote"
+        active={isActive("/copynote") ? true : undefined}
+      >
         필사노트
       </LinkMenu>
     </LeftMenuContainer>

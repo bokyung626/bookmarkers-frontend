@@ -55,7 +55,7 @@ export const BookListPage: React.FC = () => {
     <PageContainer>
       <BookSearch></BookSearch>
       <SectionTitle>
-        '<span>{id}</span>'에 대한 검색결과
+        <span>'{id}'에 대한 검색결과</span>
       </SectionTitle>
       <TotalMsg>총 {total}건</TotalMsg>
       <BookList>

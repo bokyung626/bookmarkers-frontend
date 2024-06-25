@@ -124,7 +124,9 @@ export const WriteReviewPage = () => {
 
   return (
     <PageContainer>
-      <SectionTitle>독서노트 작성</SectionTitle>
+      <SectionTitle>
+        <span>독서노트 작성</span>
+      </SectionTitle>
       <BookReadingContainer>
         <Input
           type="text"
