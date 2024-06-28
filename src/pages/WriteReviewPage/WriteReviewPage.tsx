@@ -11,7 +11,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAxiosWithAuth } from "../../hooks/useAxiosWithAuth";
 import { AutoResizeTextarea } from "../../components/common/AutoResizeTextarea/AutoResizeTextarea";
 import axios from "axios";
-import { Book } from "../../types/book";
+import { Book } from "book";
 
 const CONTENT_LIMIT = 1000;
 const MEMORY_LIMIT = 300;

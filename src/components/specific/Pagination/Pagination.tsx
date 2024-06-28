@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  NextButton,
-  PageButton,
-  PaginationContainer,
-  PrevButton,
-} from "./style";
+import * as S from "./style";
 
 interface PaginationProps {
   currentPage: number;
@@ -35,16 +30,16 @@ export const Pagination: React.FC<PaginationProps> = ({
   }
 
   return (
-    <PaginationContainer>
+    <S.PaginationContainer>
       {currentPage > 1 && (
-        <PrevButton
+        <S.PrevButton
           onClick={() => handlePageChange(Math.max(startPage - 10, 1))}
         >
           이전 페이지
-        </PrevButton>
+        </S.PrevButton>
       )}
       {pages.map((page) => (
-        <PageButton
+        <S.PageButton
           key={page}
           onClick={() => {
             onPageChange(page);
@@ -52,15 +47,15 @@ export const Pagination: React.FC<PaginationProps> = ({
           active={currentPage === page}
         >
           {page}
-        </PageButton>
+        </S.PageButton>
       ))}
       {currentPage < totalPages && (
-        <NextButton
+        <S.NextButton
           onClick={() => handlePageChange(Math.min(endPage + 1, totalPages))}
         >
           다음 페이지
-        </NextButton>
+        </S.NextButton>
       )}
-    </PaginationContainer>
+    </S.PaginationContainer>
   );
 };

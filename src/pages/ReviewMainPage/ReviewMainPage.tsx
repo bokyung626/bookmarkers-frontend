@@ -3,7 +3,7 @@ import { PageContainer, SectionTitle } from "../../assets/styles/style";
 import { ReviewList } from "../../components/specific/ReviewList/ReviewList";
 import axios from "axios";
 import { ReviewSearch } from "../../components/specific/ReviewSearch/ReviewSearch";
-import { Review } from "../../types/review";
+import { Review } from "review";
 
 export const ReviewMainPage = () => {
   const [reviews, setReviews] = useState<Review[]>([]);

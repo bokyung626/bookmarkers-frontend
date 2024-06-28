@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./style";
 import axios from "axios";
-import { Book } from "../../types/book";
+import { Book } from "book";
 import { useNavigate } from "react-router-dom";
 
 export const RecommentBook: React.FC = () => {

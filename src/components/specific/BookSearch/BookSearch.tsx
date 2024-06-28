@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import {
-  Container,
-  SearchButton,
-  SearchContainer,
-  SearchIcon,
-  SearchInput,
-  Select,
-  SelectContainer,
-} from "./style";
+import * as S from "./style";
 
 export const BookSearch: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState("title");
@@ -33,19 +25,19 @@ export const BookSearch: React.FC = () => {
   };
 
   return (
-    <Container>
-      <SearchContainer>
-        <SelectContainer>
-          <Select
+    <S.Container>
+      <S.SearchContainer>
+        <S.SelectContainer>
+          <S.Select
             name="search-option"
             id="search-option"
             onChange={onSelectHandler}
           >
             <option value="title">제목</option>
             <option value="isbn">ISBN</option>
-          </Select>
-        </SelectContainer>
-        <SearchInput
+          </S.Select>
+        </S.SelectContainer>
+        <S.SearchInput
           type="text"
           placeholder="검색어를 입력하세요."
           value={searchValue}
@@ -56,15 +48,15 @@ export const BookSearch: React.FC = () => {
             if (e.key === "Enter") onSearch();
           }}
         />
-        <SearchButton
+        <S.SearchButton
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.preventDefault();
             onSearch();
           }}
         >
-          <SearchIcon icon={faSearch} />
-        </SearchButton>
-      </SearchContainer>
-    </Container>
+          <S.SearchIcon icon={faSearch} />
+        </S.SearchButton>
+      </S.SearchContainer>
+    </S.Container>
   );
 };

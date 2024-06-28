@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "../../assets/styles/style";
 
-export const MyPage = () => {
+export const MyPage: React.FC = () => {
   return (
     <S.PageContainer>
       {/* <S.ProfileImageBox

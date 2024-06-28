@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { PageContainer, SectionTitle } from "../../assets/styles/style";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import * as Styled from "./style";
-import { Book } from "../../types/book";
+import * as S from "./style";
+import { Book } from "book";
 import { ReviewList } from "../../components/specific/ReviewList/ReviewList";
 
-export const BookInfoPage = () => {
+export const BookInfoPage: React.FC = () => {
   const { id } = useParams();
   const [reviews, setReviews] = useState([]);
   const [copynotes, setCopynotes] = useState([]);
@@ -38,51 +38,51 @@ export const BookInfoPage = () => {
       <SectionTitle>
         <span>도서 정보</span>
       </SectionTitle>
-      <Styled.BookInfoContainer>
-        <Styled.BookInfoMenu></Styled.BookInfoMenu>
-        <Styled.BooKInfoWrapper>
-          <Styled.BookImage>
+      <S.BookInfoContainer>
+        <S.BookInfoMenu></S.BookInfoMenu>
+        <S.BooKInfoWrapper>
+          <S.BookImage>
             <img src={book.image} alt={book.title} />
-          </Styled.BookImage>
-          <Styled.BookDesc>
-            <Styled.BookTitle>{book.title}</Styled.BookTitle>
-            <Styled.BookAuthor>
+          </S.BookImage>
+          <S.BookDesc>
+            <S.BookTitle>{book.title}</S.BookTitle>
+            <S.BookAuthor>
               {book.author} / {book.publisher}
-            </Styled.BookAuthor>
-            <Styled.BookDescription>{book.description}</Styled.BookDescription>
-          </Styled.BookDesc>
-        </Styled.BooKInfoWrapper>
-      </Styled.BookInfoContainer>
-      <Styled.ButtonContainer>
-        <Styled.WriteReadingNoteButton
+            </S.BookAuthor>
+            <S.BookDescription>{book.description}</S.BookDescription>
+          </S.BookDesc>
+        </S.BooKInfoWrapper>
+      </S.BookInfoContainer>
+      <S.ButtonContainer>
+        <S.WriteReadingNoteButton
           onClick={() => {
             navigate(`/review/write/${id}`);
           }}
         >
           독서노트 작성
-        </Styled.WriteReadingNoteButton>
-      </Styled.ButtonContainer>
+        </S.WriteReadingNoteButton>
+      </S.ButtonContainer>
       <SectionTitle>
         <span>이 책의 독서노트</span>
       </SectionTitle>
-      <Styled.ReadingNoteContainer>
+      <S.ReadingNoteContainer>
         {reviews.length > 0 ? (
           <></>
         ) : (
           <span>아직 이 책의 독서노트가 없습니다..</span>
         )}
-      </Styled.ReadingNoteContainer>
+      </S.ReadingNoteContainer>
       <ReviewList reviews={reviews}></ReviewList>
       <SectionTitle>
         <span>이 책의 필사노트</span>
       </SectionTitle>
-      <Styled.CopyNoteContainer>
+      <S.CopyNoteContainer>
         {copynotes.length > 0 ? (
           <></>
         ) : (
           <span>아직 이 책의 필사노트가 없습니다..</span>
         )}
-      </Styled.CopyNoteContainer>
+      </S.CopyNoteContainer>
     </PageContainer>
   );
 };

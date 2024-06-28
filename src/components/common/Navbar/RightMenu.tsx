@@ -2,7 +2,7 @@ import React from "react";
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 
-export const RightMenu = () => {
+export const RightMenu: React.FC = () => {
   const navigation = useNavigate();
 
   const isLogin = !!localStorage.getItem("user");

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as S from "./style";
 import axios from "axios";
-import { GButton } from "../../assets/styles/style";
 
 export const RegisterPage: React.FC = () => {
   const navigate = useNavigate();

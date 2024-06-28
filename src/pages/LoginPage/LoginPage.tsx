@@ -1,13 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  ErrorMsg,
-  LoginButton,
-  LoginForm,
-  LoginFormWrapper,
-  LoginPageContainer,
-  StyledInput,
-} from "./style";
+import * as S from "./style";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
@@ -54,31 +47,31 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div>
-      <LoginPageContainer>
-        <LoginFormWrapper>
+      <S.LoginPageContainer>
+        <S.LoginFormWrapper>
           <h2>로그인</h2>
-          <LoginForm onSubmit={loginHandler}>
-            <StyledInput
+          <S.LoginForm onSubmit={loginHandler}>
+            <S.StyledInput
               type="email"
               placeholder="이메일"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <StyledInput
+            <S.StyledInput
               type="password"
               placeholder="비밀번호"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <LoginButton>로그인</LoginButton>
-          </LoginForm>
-          <ErrorMsg>{errorMsg}</ErrorMsg>
+            <S.LoginButton>로그인</S.LoginButton>
+          </S.LoginForm>
+          <S.ErrorMsg>{errorMsg}</S.ErrorMsg>
           <small>
             계정이 없으신가요?
             <Link to="/register">회원가입</Link>
           </small>
-        </LoginFormWrapper>
-      </LoginPageContainer>
+        </S.LoginFormWrapper>
+      </S.LoginPageContainer>
     </div>
   );
 };

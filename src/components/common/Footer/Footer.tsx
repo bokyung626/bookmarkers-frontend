@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "./style";
 
-export const Footer = () => {
+export const Footer: React.FC = () => {
   return (
     <S.FooterContainer>
       <p>contact : ruddl033@naver.com</p>

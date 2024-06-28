@@ -8,14 +8,14 @@ import {
 import * as Styled from "./style";
 import axios, { AxiosResponse } from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { Review } from "../../types/review";
+import { Book } from "book";
+import { Review } from "review";
+import { ParentComment } from "comment";
 import dayjs from "dayjs";
 import { UserProfile } from "../../components/common/User/UserProfile";
-import { Book } from "../../types/book";
 import { Modal } from "../../components/common/Modal/Modal";
 import { useAxiosWithAuth } from "../../hooks/useAxiosWithAuth";
 import { CommentInput, CommentList } from "../../components/specific/Comment";
-import { ParentComment } from "../../types/comment";
 import { useUserData } from "../../hooks/useUserData";
 
 export const ViewReviewPage = () => {

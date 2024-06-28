@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, useState } from "react";
-import * as Styled from "./style";
+import * as S from "./style";
 
 interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   value: string;
@@ -22,13 +22,13 @@ export const AutoResizeTextarea: React.FC<Props> = ({
   }, []);
 
   return (
-    <Styled.Textarea
+    <S.Textarea
       ref={ref}
       value={value}
       placeholder={placeholder}
       onChange={onChange}
       onInput={handleResizeHeight}
       rows={3}
-    ></Styled.Textarea>
+    ></S.Textarea>
   );
 };

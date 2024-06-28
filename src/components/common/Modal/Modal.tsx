@@ -3,7 +3,6 @@ import * as Styled from "./style";
 
 interface ModalProps {
   active: boolean;
-  //   onEventHandler: () => {};
   onClose: () => void;
   title: string;
   content: string;

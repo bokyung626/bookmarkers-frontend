@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { BookSearch } from "../../components/specific/BookSearch/BookSearch";
+import { Review } from "review";
 import { PageContainer, SectionTitle } from "../../assets/styles/style";
 import { RecommentBook } from "./RecommentBook";
 import axios from "axios";
 import { ReviewList } from "../../components/specific/ReviewList/ReviewList";
-import { Review } from "../../types/review";
 import { useNavigate } from "react-router-dom";
 
-export const MainPage = () => {
+export const MainPage: React.FC = () => {
   const [currentReviews, setCurrentReviews] = useState<Review[]>([]);
   const navigate = useNavigate();
 
