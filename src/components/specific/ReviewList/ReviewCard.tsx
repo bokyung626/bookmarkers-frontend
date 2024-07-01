@@ -1,6 +1,6 @@
 import React from "react";
 import * as S from "./style";
-import { Review } from "../../../types/review";
+import { Review } from "review";
 import textSlicer from "../../../utils/textSlicer";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";

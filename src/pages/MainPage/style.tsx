@@ -18,6 +18,7 @@ export const RecommentBookContainer = styled.div`
 export const BookList = styled.div`
   display: flex;
   overflow: scroll;
+  justify-content: space-evenly;
   min-height: 300px;
 
   &::-webkit-scrollbar {

@@ -37,6 +37,7 @@ export const useAxiosWithAuth = (): AxiosInstance => {
       if (error.response.status === 401) {
         window.alert("로그인이 필요합니다.");
         navigate("/login");
+        return;
       }
 
       // access token 만료 시 리프레시 토큰 재발급 요청

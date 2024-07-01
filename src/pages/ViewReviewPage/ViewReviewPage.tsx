@@ -24,7 +24,7 @@ export const ViewReviewPage = () => {
   const [comments, setComments] = useState<ParentComment[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
-  const { isAuthUser } = useUserData();
+  const { userData, isAuthUser } = useUserData();
   const [modalContent, setModalContent] = useState("");
   const { id } = useParams();
   const axiosInstance = useAxiosWithAuth();
@@ -67,6 +67,11 @@ export const ViewReviewPage = () => {
   // Comment Method
 
   const onSubmitComment = (content: string) => {
+    if (!userData) {
+      window.alert("댓글 작성 권한이 없습니다. 로그인 해주세요.");
+      return;
+    }
+
     if (content === "") {
       window.alert("댓글을 작성해 주세요.");
       return;

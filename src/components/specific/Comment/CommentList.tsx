@@ -1,7 +1,8 @@
 import React from "react";
 import * as S from "./style";
 import { Comment } from "./Comment";
-import { ParentComment } from "../../../types/comment";
+import { ParentComment } from "comment";
+import { Cookies } from "react-cookie";
 
 interface CommentListProps {
   comments: ParentComment[];
@@ -18,6 +19,7 @@ const CommentList: React.FC<CommentListProps> = ({
     <S.CommentListContainer>
       {comments.map((comment: ParentComment) => (
         <Comment
+          key={comment.id}
           comment={comment}
           onUpdateComment={onUpdateComment}
           onDeleteComment={onDeleteComment}

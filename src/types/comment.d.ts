@@ -1,5 +1,3 @@
-import { User } from "user";
-
 declare module "comment" {
   export interface ParentComment {
     id: string;

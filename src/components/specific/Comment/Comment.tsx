@@ -4,7 +4,7 @@ import { Avatar } from "../../common/User/Avatar";
 import dayjs from "dayjs";
 import ReplyCommentInput from "./ReplyCommentInput";
 import { useAxiosWithAuth } from "../../../hooks/useAxiosWithAuth";
-import { ChildComment, ParentComment } from "../../../types/comment";
+import { ChildComment, ParentComment } from "comment";
 import { Reply } from "./Reply";
 import { Modal } from "../../common/Modal/Modal";
 import { GButton, WButton } from "../../../assets/styles/style";

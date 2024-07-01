@@ -108,10 +108,12 @@ export const RegisterPage: React.FC = () => {
             <S.RegisterButton>회원가입</S.RegisterButton>
           </S.RegisterForm>
           {alert && <S.AlertMsg>{alert}</S.AlertMsg>}
-          <small>
-            이미 계정이 있으신가요?
-            <Link to="/login">로그인</Link>
-          </small>
+          <div>
+            <span>이미 계정이 있으신가요? </span>
+            <Link to="/login">
+              <span style={{ color: "green" }}>로그인</span>
+            </Link>
+          </div>
         </S.RegisterFormWrapper>
       </S.RegisterPageContainer>
     </div>

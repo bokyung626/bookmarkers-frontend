@@ -66,10 +66,12 @@ export const LoginPage: React.FC = () => {
             <S.LoginButton>로그인</S.LoginButton>
           </S.LoginForm>
           <S.ErrorMsg>{errorMsg}</S.ErrorMsg>
-          <small>
-            계정이 없으신가요?
-            <Link to="/register">회원가입</Link>
-          </small>
+          <div>
+            <span>계정이 없으신가요? </span>
+            <Link to="/register">
+              <span style={{ color: "green" }}>회원가입</span>
+            </Link>
+          </div>
         </S.LoginFormWrapper>
       </S.LoginPageContainer>
     </div>

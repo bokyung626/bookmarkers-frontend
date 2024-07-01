@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as S from "./style";
 import { Avatar } from "../../common/User/Avatar";
 import dayjs from "dayjs";
-import { ChildComment } from "../../../types/comment";
+import { ChildComment } from "comment";
 import { Modal } from "../../common/Modal/Modal";
 import { GButton, WButton } from "../../../assets/styles/style";
 import { useUserData } from "../../../hooks/useUserData";

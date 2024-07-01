@@ -1,6 +1,3 @@
-import { ParentComment } from "comment";
-import { User } from "user";
-
 declare module "review" {
   export interface Review {
     id: string;
