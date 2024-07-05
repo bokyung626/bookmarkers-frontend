@@ -11,11 +11,12 @@ export const useAxiosWithAuth = (): AxiosInstance => {
   // 요청 인터셉터
   axiosWithAuth.interceptors.request.use(
     (config) => {
-      const data = localStorage.getItem("user");
+      const data = localStorage.getItem("accessToken");
+
+      console.log(data);
 
       if (data) {
-        const token = JSON.parse(data);
-        config.headers.Authorization = `Bearer ${token.accessToken}`;
+        config.headers.Authorization = `Bearer ${data}`;
       }
       return config;
     },
@@ -43,7 +44,7 @@ export const useAxiosWithAuth = (): AxiosInstance => {
       // access token 만료 시 리프레시 토큰 재발급 요청
       if (error.response.status === 403) {
         try {
-          const data = localStorage.getItem("user");
+          const data = localStorage.getItem("accessToken");
 
           if (data) {
             const token = JSON.parse(data);
@@ -54,12 +55,12 @@ export const useAxiosWithAuth = (): AxiosInstance => {
 
             const newAccessToken = res.data.accessToken;
 
-            const user = {
-              accessToken: newAccessToken,
-              userData: token.userData,
-            };
+            // const user = {
+            //   accessToken: newAccessToken,
+            //   userData: token.userData,
+            // };
 
-            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("accessToken", newAccessToken);
 
             // 재발급 받은 액세스 토큰을 사용해 요청을 다시 실행
             originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;

@@ -23,8 +23,9 @@ export const PageContainer = styled.div`
   box-sizing: border-box;
   padding-bottom: 40px;
   min-height: 100vh;
+  padding-top: 100px;
 
-  @media ${(props) => props.theme.device.mobile} {
+  /* @media ${(props) => props.theme.device.mobile} {
     padding-top: 70px;
   }
   @media ${(props) => props.theme.device.tablet} {
@@ -35,7 +36,7 @@ export const PageContainer = styled.div`
   }
   @media ${(props) => props.theme.device.desktop} {
     padding-top: 100px;
-  }
+  } */
 `;
 
 export const SectionTitle = styled.div`

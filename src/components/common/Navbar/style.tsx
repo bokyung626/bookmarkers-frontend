@@ -3,30 +3,37 @@ import { Link } from "react-router-dom";
 
 export const NavbarContainer = styled.div`
   display: flex;
+  flex-direction: column;
   position: fixed;
-  justify-content: space-between;
   z-index: 99;
+
   width: 100%;
+`;
+
+export const NavMenuBox = styled.div`
+  display: flex;
+  justify-content: space-between;
   box-sizing: border-box;
+  height: 80px;
   /* border-bottom: solid 1px #e8e8e8; */
   overflow: auto;
   align-items: center;
   border-bottom: 3px solid green;
   padding: 10px 20px;
   background-color: white;
-
+  /* 
   @media ${(props) => props.theme.device.mobile} {
     height: 70px;
   }
   @media ${(props) => props.theme.device.tablet} {
-    height: 80px;
+    height: 70px;
   }
   @media ${(props) => props.theme.device.laptop} {
-    height: 90px;
+    height: 70px;
   }
   @media ${(props) => props.theme.device.desktop} {
-    height: 100px;
-  }
+    height: 70px;
+  } */
 `;
 
 export const LeftMenuContainer = styled.div`
@@ -37,9 +44,15 @@ export const LeftMenuContainer = styled.div`
 
 export const RightMenuContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
   height: 100%;
-  align-items: flex-start;
-  gap: 10px;
+
+  .user-profile {
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
 `;
 
 export const Logo = styled(Link)`
@@ -57,12 +70,6 @@ export const Logo = styled(Link)`
   }
 `;
 
-export const Br = styled.div`
-  width: 1px;
-  height: 1rem;
-  background-color: black;
-`;
-
 interface LinkMenuProps {
   active: boolean | undefined;
 }
@@ -78,20 +85,4 @@ export const LinkMenu = styled(Link)<LinkMenuProps>`
   &:hover {
     color: green;
   }
-`;
-
-export const Menu = styled(Link)`
-  font-size: 1rem;
-  text-decoration: none;
-  font-weight: 500;
-  color: black;
-`;
-
-export const LogoutButton = styled.button`
-  background-color: white;
-  font-size: 1rem;
-  font-weight: 500;
-  color: black;
-  cursor: pointer;
-  font-family: "GmarketSansMedium";
 `;
