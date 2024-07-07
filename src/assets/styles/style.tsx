@@ -23,7 +23,7 @@ export const PageContainer = styled.div`
   box-sizing: border-box;
   padding-bottom: 40px;
   min-height: 100vh;
-  padding-top: 100px;
+  padding-top: 120px;
 
   /* @media ${(props) => props.theme.device.mobile} {
     padding-top: 70px;
