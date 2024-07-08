@@ -7,6 +7,8 @@ export const useUserData = () => {
     const user = localStorage.getItem("user");
     if (user) {
       setUserData(JSON.parse(user).userData);
+    } else {
+      setUserData(null);
     }
   }, []);
 
@@ -16,5 +18,5 @@ export const useUserData = () => {
     } else return false;
   };
 
-  return { userData, isAuthUser };
+  return { userData, setUserData, isAuthUser };
 };

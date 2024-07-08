@@ -23,7 +23,7 @@ export const MainPage: React.FC = () => {
       <SectionTitle>
         <span>이 달의 추천도서</span>
       </SectionTitle>
-      <RecommentBook></RecommentBook>
+      {/* <RecommentBook></RecommentBook> */}
       <SectionTitle>
         <span>최근에 올라온 독서노트</span>
         <button

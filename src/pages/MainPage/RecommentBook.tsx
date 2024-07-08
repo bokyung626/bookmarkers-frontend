@@ -8,29 +8,36 @@ export const RecommentBook: React.FC = () => {
   const [isbnList, setIsbnList] = useState([
     "9791190090261",
     "9791189327156",
-    "9788936434120",
-    "9788936434595",
-    "9788937460883",
-    "9791162203392",
-    "9788936811549",
-    "9791191824001",
+    // "9788936434120",
+    // "9788936434595",
+    // "9788937460883",
   ]);
   const [books, setBooks] = useState<Book[]>([]);
   const navigate = useNavigate();
   useEffect(() => {
     (async () => {
-      const newList = await Promise.all(
-        isbnList.map(async (isbn) => {
-          const res = await axios.post("/book/searchByISBN", { isbn });
-          if (res.data.items.length > 0) {
-            return res.data.items[0];
-          }
-          return null; // 결과가 없으면 null 반환
-        })
-      );
+      try {
+        // const newList = await Promise.all(
+        //   isbnList.map(async (isbn) => {
+        //     const res = await axios.post("/book/searchByISBN", { isbn });
+        //     if (res.data.items.length > 0) {
+        //       return res.data.items[0];
+        //     }
+        //     return null; // 결과가 없으면 null 반환
+        //   })
+        // );
 
-      const filteredList = newList.filter((item) => item !== null);
-      setBooks(filteredList);
+        // const filteredList = newList.filter((item) => item !== null);
+        // setBooks(filteredList);
+
+        const newList = await axios.post("/book/searchByISBN", {
+          isbn: isbnList.join(","),
+        });
+
+        console.log(newList);
+        // const filteredList = newList.filter((item) => item !== null);
+        // setBooks(filteredList);
+      } catch (err) {}
     })();
   }, []);
 
